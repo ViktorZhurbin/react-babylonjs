@@ -5,7 +5,8 @@
     "packages": [
       "devtool/*",
       "packages/react-babylonjs",
-      "packages/static"
+      "packages/static",
+      "packages/website"
     ]
   },
   "scripts": {

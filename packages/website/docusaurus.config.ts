@@ -5,6 +5,16 @@ import type * as Preset from '@docusaurus/preset-classic'
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
+  plugins: [
+    process.env.RSDOCTOR === 'true' && [
+      'rsdoctor',
+      {
+        rsdoctorOptions: {
+          supports: { generateTileGraph: true },
+        },
+      },
+    ],
+  ],
   future: {
     experimental_faster: true,
   },
