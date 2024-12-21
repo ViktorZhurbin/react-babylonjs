@@ -1,6 +1,7 @@
 import { themes as prismThemes } from 'prism-react-renderer'
 import type { Config } from '@docusaurus/types'
 import type * as Preset from '@docusaurus/preset-classic'
+import { remarkFileLoader } from './src/plugins/remarkFileLoader'
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -10,6 +11,7 @@ const config: Config = {
       'rsdoctor',
       {
         rsdoctorOptions: {
+          mode: 'lite',
           supports: { generateTileGraph: true },
         },
       },
@@ -54,6 +56,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: 'https://github.com/ViktorZhurbin/react-babylonjs/tree/master/packages/website/',
+          beforeDefaultRemarkPlugins: [remarkFileLoader],
         },
         theme: {
           customCss: './src/css/custom.css',
