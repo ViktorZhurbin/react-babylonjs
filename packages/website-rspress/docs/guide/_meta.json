@@ -1,1 +1,10 @@
-["index"]
+[
+  "overview",
+  "quickstart",
+  "react-cra/index",
+  "react-with-imperative-babylonjs/index",
+  "react-with-declarative-babylonjs/index",
+  "animation/index",
+  "adding-interaction-and-color/index",
+  "adding-shadows/index"
+]

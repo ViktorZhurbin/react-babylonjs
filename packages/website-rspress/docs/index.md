@@ -2,36 +2,35 @@
 pageType: home
 
 hero:
-  name: My Site
-  text: A cool website!
-  tagline: This is the tagline
+  name: React Babylonjs
+  # text: A cool website!
+  tagline: Use Babylon.js with React
   actions:
     - theme: brand
       text: Quick Start
-      link: /guide/
+      link: /guide/overview
     - theme: alt
       text: GitHub
-      link: https://github.com/web-infra-dev/rspress
-  image:
-    src: /rspress-icon.png
-    alt: Logo
+      link: https://github.com/brianzinn/react-babylonjs
+
 features:
-  - title: Blazing fast build speed
-    details: The core compilation module is based on the Rust front-end toolchain, providing a more ultimate development experience.
-    icon: 🏃🏻‍♀️
-  - title: Support for MDX content writing
-    details: MDX is a powerful way to write content, allowing you to use React components in Markdown.
+  - title: Use React
+    details:
+      Build 3D and XR scenes and games using reactive programming, reusable
+      components, and hooks
+    icon: 🏎️
+
+  - title: Declarative API
+    details:
+      The Babylon.js API is mostly covered declaratively thanks to code
+      generation and even custom props allow you to declaratively add shadows,
+      physics, 3D models, attach 2D/3D UI to meshes, etc.
     icon: 📦
-  - title: Built-in full-text search
-    details: Automatically generates a full-text search index for you during construction, providing out-of-the-box full-text search capabilities.
+
+  - title: Hooks / TS / Context API
+    details:
+      Fully supports hooks. Full support for TypeScript with auto-completion on
+      elements and compile time checks. Context API and hooks provide easy
+      access to Scene/Engine/Canvas.
     icon: 🎨
-  - title: Simpler I18n solution
-    details: With the built-in I18n solution, you can easily provide multi-language support for documents or components.
-    icon: 🌍
-  - title: Static site generation
-    details: In production, it automatically builds into static HTML files, which can be easily deployed anywhere.
-    icon: 🌈
-  - title: Providing multiple custom capabilities
-    details: Through its extension mechanism, you can easily extend theme UI and build process.
-    icon: 🔥
 ---
