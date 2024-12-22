@@ -14,7 +14,12 @@ export default defineConfig({
   title: 'React Babylonjs',
   // icon: '/rspress-icon.png',
 
-  plugins: [pluginPlayground({ defaultRenderMode: 'pure' })],
+  plugins: [
+    pluginPlayground({
+      defaultRenderMode: 'pure',
+      defaultDirection: 'vertical',
+    }),
+  ],
 
   route: {
     cleanUrls: true,
