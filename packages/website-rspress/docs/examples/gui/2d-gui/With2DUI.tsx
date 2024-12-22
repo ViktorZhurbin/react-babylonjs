@@ -1,19 +1,18 @@
-import { Color3, Color4 } from '@babylonjs/core/Maths/math.color'
-import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { Mesh } from '@babylonjs/core/Meshes/mesh'
-import { Animation } from '@babylonjs/core/Animations/animation'
 import { useState, FC, useRef } from 'react'
 import { Engine, Scene } from 'react-babylonjs'
-import { EasingFunction, ExponentialEase } from '@babylonjs/core/Animations/easing'
-import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh'
-import { Camera, Texture } from '@babylonjs/core'
-import { Control } from '@babylonjs/gui/2D/controls/control'
-
-// https://github.com/sebavan/BabylonjsInkSample/blob/master/src/debug/appDebug.ts
-// To get inspector to load
-// import "@babylonjs/core/Legacy/legacy";
-// import "@babylonjs/core/Debug/debugLayer";
-// import "@babylonjs/inspector";
+import {
+  Camera,
+  Texture,
+  Color3,
+  Color4,
+  Vector3,
+  Animation,
+  Mesh,
+  AbstractMesh,
+  EasingFunction,
+  ExponentialEase,
+} from '@babylonjs/core'
+import { Control } from '@babylonjs/gui'
 
 const DEFAULT_BOXES = [
   {
@@ -35,19 +34,6 @@ const DEFAULT_BOXES = [
     index: 3,
   },
 ]
-
-// const Inspector = () => {
-//   const scene = useScene();
-//   useEffect(() => {
-//     if (scene) {
-//       scene.debugLayer.show();
-//     } else {
-//       console.log('no scene')
-//     }
-//   }, [])
-
-//   return null;
-// };
 
 const UIComponent: FC = () => {
   const plane = useRef<Mesh | undefined>(undefined)

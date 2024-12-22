@@ -45,7 +45,10 @@ const MyScene = () => {
           useRoughnessFromMetallicTextureGreen
           useMetallnessFromMetallicTextureBlue
         >
-          <texture url="/assets/textures/mr.jpg" assignTo="metallicTexture" />
+          <texture
+            url="https://raw.githubusercontent.com/brianzinn/react-babylonjs/refs/heads/master/packages/static/static/assets/textures/mr.jpg"
+            assignTo="metallicTexture"
+          />
         </pbrMaterial>
       </sphere>
     </Scene>

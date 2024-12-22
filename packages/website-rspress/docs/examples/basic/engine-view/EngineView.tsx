@@ -113,12 +113,14 @@ export const EngineView = () => {
           </Engine>
         </div>
       </div>
+
       <div className="row">
         <div className="col-12">second canvas</div>
       </div>
       <div className="row">
         <div className="col-8">
-          <canvas className="second-canvas-babylon" ref={secondCanvasRef} />
+          {/* TODO: this breaks in Playground */}
+          <canvas id="second-canvas-babylon" ref={secondCanvasRef} width="100%" height="100%" />
         </div>
       </div>
     </div>

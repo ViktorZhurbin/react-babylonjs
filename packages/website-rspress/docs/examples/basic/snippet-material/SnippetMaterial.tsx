@@ -105,6 +105,7 @@ const SnippetMaterial: FC = () => {
               />
               <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
               <sphere name="sphere1" diameter={2} segments={16} position={new Vector3(0, 1, 0)}>
+                {/* TODO: fix material */}
                 <SnippetMaterialById
                   name="sphereMat"
                   snippetId="#81NNDY#20"

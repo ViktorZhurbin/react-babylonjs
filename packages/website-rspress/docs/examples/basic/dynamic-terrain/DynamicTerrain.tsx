@@ -3,9 +3,9 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import React from 'react'
 import { Engine, Scene } from 'react-babylonjs'
 
-const xSize = 500
-const zSize = 500
-const subSize = 100
+const xSize = 100
+const zSize = 100
+const subSize = 70
 
 const getMapData = () => {
   let mapSubX = xSize
@@ -24,6 +24,8 @@ const getMapData = () => {
   return mapData
 }
 
+const mapData = getMapData()
+
 const WithDynamicTerrain = () => (
   <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
     <Scene clearColor={new Color4(0.2, 0.4, 0.75, 1.0)}>
@@ -35,7 +37,7 @@ const WithDynamicTerrain = () => (
       />
       <dynamicTerrain
         name="ContinuousTerrain"
-        mapData={getMapData()}
+        mapData={mapData}
         mapSubX={xSize}
         mapSubZ={zSize}
         terrainSub={subSize}

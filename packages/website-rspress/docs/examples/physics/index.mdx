@@ -10,13 +10,13 @@ When you declare your physics aggregate you need to set the type and pass in the
 appropriate options. Note the leading underscore due to how the babylon class
 was created.
 
-```jsx
+```tsx
 <mesh ...>
   <physicsAggregate type={PhysicsShapeType.BOX} _options={{ mass: 0, restitution: 0.9 }} />
 </mesh>
 ```
 
-<code src="./Physics2.tsx" />
+[devtool:Physics2.tsx]
 
 # Physics v1
 
@@ -26,10 +26,10 @@ When you declare your physics impostor you need to set the type and pass in the
 appropriate options. Note the leading underscore due to how the babylon class
 was created.
 
-```jsx
+```tsx
 <mesh ...>
   <physicsImpostor type={PhysicsImpostor.BoxImpostor} _options={{ mass: 0, restitution: 0.9 }} />
 </mesh>
 ```
 
-<code src="./Physics.tsx" />
+[devtool:Physics.tsx]

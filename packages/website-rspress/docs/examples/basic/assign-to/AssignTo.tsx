@@ -28,13 +28,16 @@ export const FromInstance = () => (
             useRoughnessFromMetallicTextureGreen
             useMetallnessFromMetallicTextureBlue
           >
-            <texture url="/assets/textures/mr.jpg" assignTo="metallicTexture" />
+            <texture
+              url="https://raw.githubusercontent.com/brianzinn/react-babylonjs/refs/heads/master/packages/static/static/assets/textures/mr.jpg"
+              assignTo="metallicTexture"
+            />
           </pbrMaterial>
         </sphere>
         <cubeTexture
           level={0.5}
           assignTo="environmentTexture"
-          rootUrl="/assets/textures/environment.env"
+          rootUrl="https://raw.githubusercontent.com/brianzinn/react-babylonjs/refs/heads/master/packages/static/static/assets/textures/environment.env"
         />
       </Scene>
     </Engine>

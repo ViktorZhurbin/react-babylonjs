@@ -62,7 +62,7 @@ They are understood by your IDE and include intellisense and compile time
 warnings. In a Babylon.js application it means you can add your cameras, lights,
 etc. in that familiar declarative way to your scene:
 
-```typescript
+```tsx
 <Scene>
   <freeCamera
     name="camera1"
@@ -83,7 +83,7 @@ etc. in that familiar declarative way to your scene:
 Click the **"code"** tab to see the code and you can toggle between TypeScript
 or JavaScript.
 
-<code src="./BasicScene.tsx" />
+[devtool:BasicScene.tsx]
 
 ## Adding an object to the scene
 
@@ -93,14 +93,14 @@ work.
 If we create a box in Babylon.js imperatively you could call
 [CreateBox](https://doc.babylonjs.com/typedoc/modules/BABYLON#CreateBox-2):
 
-```
+```tsx
 // doesn't need to be MeshBuilder - there are creation methods that can be imported directly.
 import { MeshBuilder } from '@babylonjs/core'
 
 // NOTE: you need to pass in `scene` object yourself.
-const box = MeshBuilder.CreateBox('box', { size: 2 }, scene);
-box.position = new Vector3(0, 1, 0);
-box.rotation = Vector3.Zero();
+const box = MeshBuilder.CreateBox('box', { size: 2 }, scene)
+box.position = new Vector3(0, 1, 0)
+box.rotation = Vector3.Zero()
 ```
 
 The equivalent way using `react-babylonjs`:
@@ -125,14 +125,14 @@ underlying Babylon.js object automatically - the same as you may be accustomed
 to with CSS or element attributes in DOM. Lastly, notice that we didn't need to
 pass in a scene object - that is done automatically.
 
-<code src="./LoneBox.tsx" />
+[devtool:LoneBox.tsx]
 
 Let's quickly look with FreeCamera at a regular Babylon.js object that's not
 using a creation method to see how most objects are created.
 
 This is how we'd create a FreeCamera declaratively:
 
-```typescript
+```tsx
 import { FreeCamera, Vector3 } from '@babylonjs/core'
 var camera = new FreeCamera('camera1', new Vector3(0, 5, -10), scene)
 

@@ -4,7 +4,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { CSG } from '@babylonjs/core/Meshes/csg'
 import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder'
-import * as Earcut from 'earcut'
+import earcut from 'earcut'
 import React, { FC, useCallback } from 'react'
 import { Engine, Scene, useScene } from 'react-babylonjs'
 
@@ -68,7 +68,7 @@ const Shapes: FC = () => {
       shape={starPath}
       depth={2}
       sideOrientation={Mesh.DOUBLESIDE}
-      earcutInjection={Earcut}
+      earcutInjection={earcut}
     >
       <standardMaterial
         name="starMaterial"

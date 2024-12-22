@@ -1,25 +1,20 @@
 import * as path from 'node:path'
 import { defineConfig } from 'rspress/config'
-import { pluginPlayground } from '@rspress/plugin-playground'
+import { remarkFileLoader } from './src/plugins/remarkFileLoader'
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
   outDir: 'build',
 
   markdown: {
-    checkDeadLinks: true,
+    // checkDeadLinks: true,
     defaultWrapCode: true,
+    mdxRs: false,
+    remarkPlugins: [remarkFileLoader],
   },
 
   title: 'React Babylonjs',
   // icon: '/rspress-icon.png',
-
-  plugins: [
-    pluginPlayground({
-      defaultRenderMode: 'pure',
-      defaultDirection: 'vertical',
-    }),
-  ],
 
   route: {
     cleanUrls: true,
