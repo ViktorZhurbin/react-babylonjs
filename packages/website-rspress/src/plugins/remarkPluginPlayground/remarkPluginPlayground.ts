@@ -34,13 +34,18 @@ export const remarkPluginPlayground = () => async (tree: Root, file: VFile) => {
 
         const [childNode] = paragraphNode.children
 
-        if (!(childNode.type === 'text' && childNode.value.startsWith('[devtool:'))) return
+        if (childNode.type !== 'text') return
 
-        if (!childNode.value.endsWith('.tsx]')) {
+        const [devtoolCode, fileName] = childNode.value.split(':')
+
+        if (devtoolCode !== '[devtool') return
+
+        if (!fileName.endsWith('.tsx]')) {
           throw new Error('Only .tsx files are supported.')
         }
 
-        const moduleName = childNode.value.split(':')[1].replace('.tsx]', '')
+        const fileNameWithExt = fileName.replace(']', '')
+        const [moduleName] = fileNameWithExt.split('.')
 
         const stringImports: string[] = []
         const stringJsx: string[] = []

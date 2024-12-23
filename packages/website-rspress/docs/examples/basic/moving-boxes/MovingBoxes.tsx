@@ -1,7 +1,4 @@
-import { Color3 } from '@babylonjs/core/Maths/math.color'
-import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { AbstractMesh } from '@babylonjs/core/Meshes/abstractMesh'
-import { Nullable } from '@babylonjs/core/types'
+import { Color3, Vector3, AbstractMesh, Nullable } from '@babylonjs/core'
 import React, { FC, useEffect, useRef } from 'react'
 import { Engine, Scene, useScene } from 'react-babylonjs'
 
