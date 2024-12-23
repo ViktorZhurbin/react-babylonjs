@@ -3,8 +3,8 @@ import { Control } from '@babylonjs/gui/2D/controls/control'
 import { GlowLayer } from '@babylonjs/core/Layers/glowLayer'
 // import "@babylonjs/inspector";
 import React, { useRef } from 'react'
-import { Engine, Model, Scene } from 'react-babylonjs'
-// import ScaledModelWithProgress from '../../ScaledModelWithProgress'
+import { Engine, Scene } from 'react-babylonjs'
+import ScaledModelWithProgress from '../../ScaledModelWithProgress'
 
 /**
  * official example
@@ -42,15 +42,11 @@ function WithGlowLayer() {
         <hemisphericLight name="toto" direction={Vector3.Up()} />
         <glowLayer ref={glowRef} name="glow" options={{ mainTextureSamples: 2 }} isEnabled={true} />
 
-        {/* <ScaledModelWithProgress
+        <ScaledModelWithProgress
           center={Vector3.Zero()}
           rootUrl="https://www.babylonjs.com/Assets/NeonPipe/glTF/"
           sceneFilename="NeonPipe.gltf"
           progressBarColor={Color3.FromInts(255, 165, 0)}
-        /> */}
-        <Model
-          rootUrl="https://www.babylonjs.com/Assets/NeonPipe/glTF/"
-          sceneFilename="NeonPipe.gltf"
         />
 
         <adtFullscreenUi name="ui1">

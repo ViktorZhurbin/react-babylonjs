@@ -2,8 +2,8 @@ import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import { Mesh } from '@babylonjs/core/Meshes/mesh'
 import React, { Dispatch, FC, SetStateAction, useRef, useState } from 'react'
-import { Engine, Model, Scene, useBeforeRender, useClick, useHover } from 'react-babylonjs'
-// import ScaledModelWithProgress from '../ScaledModelWithProgress'
+import { Engine, Scene, useBeforeRender, useClick, useHover } from 'react-babylonjs'
+import ScaledModelWithProgress from '../ScaledModelWithProgress'
 
 type SpinningIcoSphereProps = {
   setRotationY: Dispatch<SetStateAction<number>>
@@ -100,7 +100,7 @@ const WithVR: FC<WithVRProps> = (props) => {
                 rotationDelta={0.1}
               />
             )}
-            {/* <ScaledModelWithProgress
+            <ScaledModelWithProgress
               rootUrl={`${baseUrl}BoomBox/glTF/`}
               sceneFilename="BoomBox.gltf"
               scaleTo={0.4}
@@ -108,11 +108,6 @@ const WithVR: FC<WithVRProps> = (props) => {
               center={new Vector3(0, 1, 0)}
               progressRotation={new Vector3(0, -Math.PI, 0)}
               modelRotation={new Vector3(0, rotationY, 0)}
-            /> */}
-            <Model
-              rootUrl={`${baseUrl}BoomBox/glTF/`}
-              sceneFilename="BoomBox.gltf"
-              scaleToDimension={0.4}
             />
             {showIcoSpheres && (
               <SpinningIcoSphere

@@ -4,8 +4,8 @@ import { GlowLayer } from '@babylonjs/core/Layers/glowLayer'
 
 // import "@babylonjs/inspector";
 import React, { useRef } from 'react'
-import { Engine, Model, Scene } from 'react-babylonjs'
-// import ScaledModelWithProgress from '../../ScaledModelWithProgress'
+import { Engine, Scene } from 'react-babylonjs'
+import ScaledModelWithProgress from '../../ScaledModelWithProgress'
 
 /**
  * some inspiration derived from here - would be good to extend this sample with more cubes at least.
@@ -90,15 +90,11 @@ function WithMultiGlowLayer() {
               />
             </box>
           ))}
-          {/* <ScaledModelWithProgress
+          <ScaledModelWithProgress
             rootUrl="https://www.babylonjs.com/Assets/NeonPipe/glTF/"
             sceneFilename="NeonPipe.gltf?v=1"
             progressBarColor={Color3.FromInts(255, 165, 0)}
             center={new Vector3(5, 0, 5)}
-          /> */}
-          <Model
-            rootUrl="https://www.babylonjs.com/Assets/NeonPipe/glTF/"
-            sceneFilename="NeonPipe.gltf?v=1"
           />
         </glowLayer>
 
@@ -129,15 +125,11 @@ function WithMultiGlowLayer() {
               />
             </box>
           ))}
-          {/* <ScaledModelWithProgress
+          <ScaledModelWithProgress
             rootUrl="https://www.babylonjs.com/Assets/NeonPipe/glTF/"
             sceneFilename="NeonPipe.gltf?v=2"
             progressBarColor={Color3.FromInts(255, 165, 0)}
             center={new Vector3(-5, 0, -5)}
-          /> */}
-          <Model
-            rootUrl="https://www.babylonjs.com/Assets/NeonPipe/glTF/"
-            sceneFilename="NeonPipe.gltf?v=2"
           />
         </glowLayer>
 

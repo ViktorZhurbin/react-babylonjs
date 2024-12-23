@@ -2,8 +2,7 @@ import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
 import React, { useState } from 'react'
 import { Engine, Scene } from 'react-babylonjs'
-import { Model } from 'react-babylonjs'
-// import ScaledModelWithProgress from '../../ScaledModelWithProgress'
+import ScaledModelWithProgress from '../../ScaledModelWithProgress'
 
 import '@babylonjs/loaders'
 
@@ -31,19 +30,12 @@ function WithToggleMesh() {
             segments={16}
             position={new Vector3(-2, 1, 0)}
           ></sphere>
-          {/* <ScaledModelWithProgress
+          <ScaledModelWithProgress
             rootUrl={`/assets/models/`}
             sceneFilename="atom.glb"
             progressBarColor={Color3.FromInts(135, 206, 235)}
             center={new Vector3(2, 1, 0)}
             scaleTo={2}
-          /> */}
-
-          <Model
-            name="model"
-            rootUrl={`/assets/models/`}
-            sceneFilename="atom.glb"
-            scaleToDimension={2}
           />
         </ground>
       )}

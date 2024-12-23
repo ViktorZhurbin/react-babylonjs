@@ -57,9 +57,9 @@ export const remarkFileLoader = () => async (tree: Root, file: VFile) => {
           seen[moduleName] = true
         }
 
-        const sourceFilePath = `${file.dirname}/${moduleName}.tsx`
-        const sources = getSources({ filePath: sourceFilePath })
-        const files = { '/App.tsx': sources.ts }
+        if (!file.dirname) return
+
+        const files = getSources({ fileBase: moduleName, dirPath: file.dirname })
 
         const devTool = `<Playground files={${JSON.stringify(files)}} />`
 

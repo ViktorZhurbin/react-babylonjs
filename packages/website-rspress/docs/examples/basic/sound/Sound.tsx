@@ -13,12 +13,7 @@ const Sound = () => (
       <Scene>
         <freeCamera name="camera1" position={new Vector3(0, 5, -10)} setTarget={[Vector3.Zero()]} />
         <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
-        <sound
-          name="sound"
-          urlOrArrayBuffer="https://raw.githubusercontent.com/brianzinn/react-babylonjs/refs/heads/master/packages/static/static/assets/sounds/violons11.wav"
-          loop
-          autoplay
-        />
+        <sound name="sound" urlOrArrayBuffer="/assets/sounds/violons11.wav" loop autoplay />
       </Scene>
     </Engine>
   </div>

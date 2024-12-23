@@ -1,11 +1,10 @@
 import { ActionManager, SetValueAction } from '@babylonjs/core/Actions'
 import { Color3 } from '@babylonjs/core/Maths/math.color'
 import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-// import "@babylonjs/inspector";
 import React, { FC, Suspense, useState } from 'react'
 import { Engine, ILoadedModel, Model, Scene } from 'react-babylonjs'
 
-// import ScaledModelWithProgress from '../../ScaledModelWithProgress'
+import ScaledModelWithProgress from '../../ScaledModelWithProgress'
 
 const WithModel: FC = () => {
   const [avocadoYPos, setAvocadoYPos] = useState(-1.5)
@@ -69,18 +68,12 @@ const WithModel: FC = () => {
               />
               <hemisphericLight name="light1" intensity={0.7} direction={Vector3.Up()} />
 
-              {/* <ScaledModelWithProgress
+              <ScaledModelWithProgress
                 rootUrl={`${baseUrl}BoomBox/glTF/`}
                 sceneFilename="BoomBox.gltf"
                 scaleTo={3}
                 progressBarColor={Color3.FromInts(255, 165, 0)}
                 center={new Vector3(2.5, 0, 0)}
-                onModelLoaded={onModelLoaded}
-              /> */}
-              <Model
-                rootUrl={`${baseUrl}BoomBox/glTF/`}
-                sceneFilename="BoomBox.gltf"
-                scaleToDimension={3}
                 onModelLoaded={onModelLoaded}
               />
 
