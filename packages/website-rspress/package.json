@@ -16,6 +16,7 @@
     "mdast-util-from-markdown": "^2.0.2",
     "mdast-util-mdx": "^3.0.0",
     "micromark-extension-mdxjs": "^3.0.0",
+    "typescript": "^5.7.2",
     "unist-util-visit": "^5.0.0"
   },
   "packageManager": "pnpm@8.7.1"

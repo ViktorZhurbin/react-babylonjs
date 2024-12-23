@@ -3,7 +3,7 @@ import { SandpackSetup } from '@codesandbox/sandpack-react'
 export const dependencies: SandpackSetup['dependencies'] = {
   '@babylonjs/core': '7.41.1',
   '@babylonjs/gui': '7.41.1',
-  '@babylonjs/havok': '1.3.10',
+  '@babylonjs/havok': '1.3.2',
   '@babylonjs/loaders': '7.41.1',
   '@babylonjs/materials': '7.41.1',
   '@babylonjs/procedural-textures': '7.41.1',

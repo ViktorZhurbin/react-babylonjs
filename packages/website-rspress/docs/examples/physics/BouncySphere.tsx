@@ -1,11 +1,13 @@
-import { FresnelParameters } from '@babylonjs/core/Materials/fresnelParameters'
-import { Texture } from '@babylonjs/core/Materials/Textures/texture'
-import { Color3 } from '@babylonjs/core/Maths/math.color'
-import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { Mesh } from '@babylonjs/core/Meshes/mesh'
-import { PhysicsImpostor } from '@babylonjs/core/Physics/physicsImpostor'
-import { Nullable } from '@babylonjs/core/types'
-import { AdvancedDynamicTexture } from '@babylonjs/gui/2D/advancedDynamicTexture'
+import {
+  FresnelParameters,
+  Texture,
+  Color3,
+  Vector3,
+  Mesh,
+  PhysicsImpostor,
+  Nullable,
+} from '@babylonjs/core'
+import { AdvancedDynamicTexture } from '@babylonjs/gui'
 import { useRef, useEffect, FC } from 'react'
 
 type BouncySphereProps = {
