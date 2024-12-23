@@ -1,6 +1,6 @@
 [
-  "overview",
   "quickstart",
+  "overview",
   "react-cra/index",
   "react-with-imperative-babylonjs/index",
   "react-with-declarative-babylonjs/index",

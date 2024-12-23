@@ -7,7 +7,7 @@ export default defineConfig({
   outDir: 'build',
 
   markdown: {
-    // checkDeadLinks: true,
+    checkDeadLinks: true,
     defaultWrapCode: true,
     mdxRs: false,
     remarkPlugins: [

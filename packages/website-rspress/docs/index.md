@@ -8,7 +8,8 @@ hero:
   actions:
     - theme: brand
       text: Quick Start
-      link: /guide/overview
+      link: /guide/quickstart
+
     - theme: alt
       text: GitHub
       link: https://github.com/brianzinn/react-babylonjs
