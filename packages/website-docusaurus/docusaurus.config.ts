@@ -55,7 +55,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/ViktorZhurbin/react-babylonjs/tree/master/packages/website/',
+          editUrl:
+            'https://github.com/ViktorZhurbin/react-babylonjs/tree/master/packages/website-docusaurus/',
           beforeDefaultRemarkPlugins: [remarkFileLoader],
         },
         theme: {

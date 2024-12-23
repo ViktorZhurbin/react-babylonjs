@@ -6,7 +6,7 @@
       "devtool/*",
       "packages/react-babylonjs",
       "packages/static",
-      "packages/website",
+      "packages/website-docusaurus",
       "packages/website-rspress"
     ]
   },
