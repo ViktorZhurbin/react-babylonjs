@@ -8,7 +8,7 @@ import {
 import { dependencies } from './dependencies'
 import { defaultFiles } from './defaultFiles'
 
-type PlaygroundProps = {
+type SandpackPlaygroundProps = {
   files: string | SandpackFiles
 }
 
@@ -18,7 +18,7 @@ const styles: Record<string, React.CSSProperties> = {
   preview: { height: '400px' },
 }
 
-export default function Playground(props: PlaygroundProps) {
+export default function SandpackPlayground(props: SandpackPlaygroundProps) {
   const isDarkTheme = useDark()
   const filesProp = typeof props.files === 'string' ? JSON.parse(props.files) : props.files
 

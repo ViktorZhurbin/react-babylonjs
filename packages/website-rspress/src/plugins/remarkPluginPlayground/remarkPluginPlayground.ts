@@ -56,15 +56,17 @@ export const remarkPluginPlayground = () => async (tree: Root, file: VFile) => {
 
         if (!file.dirname) return
 
-        // Import the Playground component
-        if (!seen['Playground']) {
-          stringImports.push(`import Playground from '@/components/Playground/Playground'`)
-          seen['Playground'] = true
+        // Import the SandpackPlayground component
+        if (!seen['SandpackPlayground']) {
+          stringImports.push(
+            `import SandpackPlayground from '@/components/SandpackPlayground/SandpackPlayground'`
+          )
+          seen['SandpackPlayground'] = true
         }
 
         const files = getSources({ fileBase: moduleName, dirPath: file.dirname })
 
-        stringJsx.push(`<Playground files={${JSON.stringify(files)}} />`)
+        stringJsx.push(`<SandpackPlayground files={${JSON.stringify(sources)}} />`)
 
         const appendedContentString = [...stringImports, '\n', ...stringJsx].join('\n')
 

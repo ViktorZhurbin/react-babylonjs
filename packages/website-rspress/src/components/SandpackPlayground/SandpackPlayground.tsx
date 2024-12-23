@@ -3,11 +3,11 @@ import { Sandpack, SandpackFiles } from '@codesandbox/sandpack-react'
 import { dependencies } from './dependencies'
 import { defaultFiles } from './defaultFiles'
 
-type PlaygroundProps = {
+type SandpackPlaygroundProps = {
   files: string | SandpackFiles
 }
 
-export default function Playground(props: PlaygroundProps) {
+export default function SandpackPlayground(props: SandpackPlaygroundProps) {
   const isDarkTheme = useDark()
   const filesProp = typeof props.files === 'string' ? JSON.parse(props.files) : props.files
 
