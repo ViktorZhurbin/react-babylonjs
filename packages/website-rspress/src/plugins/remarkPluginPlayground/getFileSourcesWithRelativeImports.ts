@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { extractImportInfo } from './extractImportInfo'
 
-const APP_FILE_NAME = 'App.tsx'
+const APP_FILE_NAME = '/App.tsx'
 const EXT_TSX = '.tsx'
 
 export const getFileSourcesWithRelativeImports = (mainFileString: string, dirPath: string) => {

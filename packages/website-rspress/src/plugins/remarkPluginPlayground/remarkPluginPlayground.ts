@@ -4,7 +4,7 @@ import type { VFile } from 'vfile'
 import { getSources } from './getSources'
 import { getMdxFromMarkdown } from './getMdxFromMarkdown'
 
-export const remarkFileLoader = () => async (tree: Root, file: VFile) => {
+export const remarkPluginPlayground = () => async (tree: Root, file: VFile) => {
   // for testing
   // if (!file.dirname?.endsWith('2d-gui')) return
 
@@ -45,25 +45,26 @@ export const remarkFileLoader = () => async (tree: Root, file: VFile) => {
         const stringImports: string[] = []
         const stringJsx: string[] = []
 
+        // Insert an import if this component hasn't been seen yet
+        // if (!seen[moduleName]) {
+        //   stringImports.push(`import ${moduleName} from "./${moduleName}"`)
+        //   seen[moduleName] = true
+        // }
+
+        // Insert plain preview of the component
+        // stringJsx.push(`<${moduleName} />`)
+
+        if (!file.dirname) return
+
         // Import the Playground component
         if (!seen['Playground']) {
           stringImports.push(`import Playground from '@/components/Playground/Playground'`)
           seen['Playground'] = true
         }
 
-        // Insert an import if this component hasn't been seen yet
-        if (!seen[moduleName]) {
-          stringImports.push(`import ${moduleName} from "./${moduleName}"`)
-          seen[moduleName] = true
-        }
-
-        if (!file.dirname) return
-
         const files = getSources({ fileBase: moduleName, dirPath: file.dirname })
 
-        const devTool = `<Playground files={${JSON.stringify(files)}} />`
-
-        stringJsx.push(devTool)
+        stringJsx.push(`<Playground files={${JSON.stringify(files)}} />`)
 
         const appendedContentString = [...stringImports, '\n', ...stringJsx].join('\n')
 

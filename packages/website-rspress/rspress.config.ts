@@ -1,6 +1,6 @@
 import * as path from 'node:path'
 import { defineConfig } from 'rspress/config'
-import { remarkFileLoader } from './src/plugins/remarkFileLoader'
+import { remarkPluginPlayground } from './src/plugins/remarkPluginPlayground'
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
@@ -10,7 +10,10 @@ export default defineConfig({
     // checkDeadLinks: true,
     defaultWrapCode: true,
     mdxRs: false,
-    remarkPlugins: [remarkFileLoader],
+    remarkPlugins: [
+      // @ts-expect-error: VFile package versions mismatch
+      remarkPluginPlayground,
+    ],
   },
 
   title: 'React Babylonjs',
