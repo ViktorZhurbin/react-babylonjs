@@ -1,5 +1,12 @@
 import fs from 'node:fs'
-import { JsxEmit, ModuleKind, NewLineKind, ScriptTarget, TranspileOptions } from 'typescript'
+import {
+  JsxEmit,
+  ModuleKind,
+  NewLineKind,
+  ScriptTarget,
+  TranspileOptions,
+  transpileModule,
+} from 'typescript'
 import { getFileSourcesWithRelativeImports } from './getFileSourcesWithRelativeImports'
 import { transformAssetPaths } from './transformAssetPaths'
 
@@ -14,7 +21,7 @@ const TRANSPILE_OPTIONS: TranspileOptions = {
   },
 }
 
-export const getSources = ({ fileBase, dirPath }: { fileBase: string; dirPath: string }) => {
+export const getCodeSources = ({ fileBase, dirPath }: { fileBase: string; dirPath: string }) => {
   const sourceFilePath = `${dirPath}/${fileBase}.tsx`
 
   let appFileString
@@ -28,7 +35,13 @@ export const getSources = ({ fileBase, dirPath }: { fileBase: string; dirPath: s
     )
   }
 
-  const sources = getFileSourcesWithRelativeImports(appFileString, dirPath)
+  const files = getFileSourcesWithRelativeImports(appFileString, dirPath)
 
-  return sources
+  const sourceTsx = Object.values(files).join('\n')
+  const sourceJsx = transpileModule(sourceTsx, TRANSPILE_OPTIONS).outputText
+
+  const tsx = '```tsx\n' + sourceTsx + '\n```'
+  const jsx = '```jsx\n' + sourceJsx + '\n```'
+
+  return { tsx, jsx, files }
 }

@@ -1,12 +1,15 @@
 import { visit } from 'unist-util-visit'
 import type { Root } from 'mdast'
 import type { VFile } from 'vfile'
-import { getSources } from './getSources'
+import { getCodeSources } from './getCodeSources'
 import { getMdxFromMarkdown } from './getMdxFromMarkdown'
 
 export const remarkPluginPlayground = () => async (tree: Root, file: VFile) => {
+  const dirPath = file.dirname
   // for testing
   // if (!file.dirname?.endsWith('2d-gui')) return
+
+  if (!dirPath) return
 
   const seen: Record<string, boolean> = {}
   const promises: Promise<void>[] = []
@@ -48,18 +51,12 @@ export const remarkPluginPlayground = () => async (tree: Root, file: VFile) => {
         const [moduleName] = fileNameWithExt.split('.')
 
         const stringImports: string[] = []
-        const stringJsx: string[] = []
 
         // Insert an import if this component hasn't been seen yet
-        // if (!seen[moduleName]) {
-        //   stringImports.push(`import ${moduleName} from "./${moduleName}"`)
-        //   seen[moduleName] = true
-        // }
-
-        // Insert plain preview of the component
-        // stringJsx.push(`<${moduleName} />`)
-
-        if (!file.dirname) return
+        if (!seen[moduleName]) {
+          stringImports.push(`import ${moduleName} from "./${moduleName}"`)
+          seen[moduleName] = true
+        }
 
         // Import the SandpackPlayground component
         if (!seen['SandpackPlayground']) {
@@ -69,11 +66,30 @@ export const remarkPluginPlayground = () => async (tree: Root, file: VFile) => {
           seen['SandpackPlayground'] = true
         }
 
-        const files = getSources({ fileBase: moduleName, dirPath: file.dirname })
+        if (!seen['Tabs']) {
+          stringImports.push(`import { Tabs, Tab } from 'rspress/theme'`)
+          seen['Tabs'] = true
+        }
 
-        stringJsx.push(`<SandpackPlayground files={${JSON.stringify(sources)}} />`)
+        const codeSources = getCodeSources({ fileBase: moduleName, dirPath })
 
-        const appendedContentString = [...stringImports, '\n', ...stringJsx].join('\n')
+        const tabsJsx = `
+          <Tabs groupId="previews">
+            <Tab value="preview" label="Preview">
+              <${moduleName} />
+            </Tab>
+            <Tab value="code-tsx" label="Typescript">\n${codeSources.tsx}\n</Tab>
+            <Tab value="code-jsx" label="Javascript">\n${codeSources.jsx}\n</Tab>
+            <Tab value="playground" label="Playground">
+              <SandpackPlayground files={${JSON.stringify(codeSources.files)}} />
+            </Tab>
+
+          </Tabs>
+        `
+
+        // stringJsx.push(`<SandpackPlayground files={${JSON.stringify(sources)}} />`)
+
+        const appendedContentString = [...stringImports, '\n', tabsJsx].join('\n')
 
         const appendedContent = getMdxFromMarkdown(appendedContentString)
 
