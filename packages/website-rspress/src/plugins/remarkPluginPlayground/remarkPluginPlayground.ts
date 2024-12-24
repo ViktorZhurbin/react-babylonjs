@@ -69,7 +69,7 @@ export const remarkPluginPlayground = () => async (tree: Root, file: VFile) => {
           seen['SandpackPlayground'] = true
         }
 
-        const files = getSources({ fileBase: moduleName, dirPath: file.dirname })
+        const { sources } = getSources({ fileBase: moduleName, dirPath: file.dirname })
 
         stringJsx.push(`<SandpackPlayground files={${JSON.stringify(sources)}} />`)
 

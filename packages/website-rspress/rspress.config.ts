@@ -1,10 +1,22 @@
 import * as path from 'node:path'
 import { defineConfig } from 'rspress/config'
+import { pluginPlayground } from '@rspress/plugin-playground'
 import { remarkPluginPlayground } from './src/plugins/remarkPluginPlayground'
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
   outDir: 'build',
+
+  plugins: [
+    pluginPlayground({
+      defaultRenderMode: 'pure',
+      render: path.join(__dirname, 'src/components/SandpressPlayground/Playground.tsx'),
+      monacoOptions: {
+        folding: false,
+        lineNumbers: 'off',
+      },
+    }),
+  ],
 
   markdown: {
     checkDeadLinks: true,
