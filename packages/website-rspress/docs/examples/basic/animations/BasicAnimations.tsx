@@ -1,8 +1,7 @@
+import { Animation, Vector3 } from '@babylonjs/core'
 import React, { FC, useEffect, useRef } from 'react'
 import '@babylonjs/core/Engines/WebGPU/Extensions'
 import { FallbackEngine, Scene, useScene } from 'react-babylonjs'
-import { Vector3 } from '@babylonjs/core/Maths/math.vector'
-import { Animation } from '@babylonjs/core'
 
 /**
  * This is for optimizing animation on initial application mount.

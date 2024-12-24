@@ -1,13 +1,5 @@
 import fs from 'node:fs'
-import {
-  JsxEmit,
-  ModuleKind,
-  NewLineKind,
-  ScriptTarget,
-  TranspileOptions,
-  transpileModule,
-} from 'typescript'
-// import prettier, { Options as PrettierOptions } from 'prettier'
+import { JsxEmit, ModuleKind, NewLineKind, ScriptTarget, TranspileOptions } from 'typescript'
 import { getFileSourcesWithRelativeImports } from './getFileSourcesWithRelativeImports'
 import { transformAssetPaths } from './transformAssetPaths'
 
@@ -21,17 +13,6 @@ const TRANSPILE_OPTIONS: TranspileOptions = {
     // removeComments: false,
   },
 }
-
-// const prettierOptions: PrettierOptions = {
-//   jsxBracketSameLine: false,
-//   singleQuote: true,
-//   tabWidth: 2,
-//   trailingComma: 'es5',
-//   semi: false,
-//   printWidth: 80,
-//   proseWrap: 'always',
-//   parser: 'typescript',
-// }
 
 export const getSources = ({ fileBase, dirPath }: { fileBase: string; dirPath: string }) => {
   const sourceFilePath = `${dirPath}/${fileBase}.tsx`
@@ -47,10 +28,7 @@ export const getSources = ({ fileBase, dirPath }: { fileBase: string; dirPath: s
     )
   }
 
-  const unformattedJsx = transpileModule(appFileString, TRANSPILE_OPTIONS).outputText
-  // const sourceJs = prettier.format(unformattedJsx, prettierOptions)
-
   const sources = getFileSourcesWithRelativeImports(appFileString, dirPath)
 
-  return { sources, sourceJs: unformattedJsx }
+  return sources
 }
