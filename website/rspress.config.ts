@@ -3,7 +3,6 @@ import { defineConfig } from 'rspress/config'
 import { remarkPluginPreviews } from './src/plugins/remarkPluginPreviews'
 
 export default defineConfig({
-  base: '/react-babylonjs/',
   root: path.join(__dirname, 'docs'),
   outDir: 'build',
 
