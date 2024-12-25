@@ -1,6 +1,6 @@
 import * as path from 'node:path'
 import { defineConfig } from 'rspress/config'
-import { remarkPluginPreviews } from './src/plugins/remarkPluginPreviews'
+import { pluginPlayground } from './src/plugins/rspressPluginPlayground'
 
 export default defineConfig({
   base: '/react-babylonjs/',
@@ -12,10 +12,9 @@ export default defineConfig({
   markdown: {
     checkDeadLinks: true,
     defaultWrapCode: true,
-    mdxRs: false,
-
-    remarkPlugins: [remarkPluginPreviews],
   },
+
+  plugins: [pluginPlayground()],
 
   route: {
     cleanUrls: true,
