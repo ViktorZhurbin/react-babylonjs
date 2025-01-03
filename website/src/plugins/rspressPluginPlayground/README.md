@@ -3,6 +3,16 @@
 Forked version of [@rspress/plugin-playground](https://github.com/web-infra-dev/rspress/tree/main/packages/plugin-playground) ([docs](https://rspress.dev/plugin/official-plugins/playground)). Replaced its editor, refactored and adjusted to meed our needs.
 
 ## To Do
+- Rollup
+  - make TSX work
+  - try to use in the browser
+    what about virtual modules?
+  - try using multiple files now
+  - exclude external imports
+  - no need to 
+    handle local imports
+    use prettier
+  - can it provide AST?
 - Local imports don't work in codesandbox
 - Clean up: remove old code
 - Clean up: refactorings
