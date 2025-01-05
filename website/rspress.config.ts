@@ -1,5 +1,6 @@
 import * as path from 'node:path'
 import { defineConfig } from 'rspress/config'
+import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill'
 import { pluginPlayground } from './src/plugins/rspressPluginPlayground'
 
 export default defineConfig({
@@ -30,6 +31,7 @@ export default defineConfig({
   },
 
   builderConfig: {
+    plugins: [pluginNodePolyfill({ include: ['path'] })],
     performance: process.env.BUNDLE_ANALYZE
       ? {
           bundleAnalyze: {

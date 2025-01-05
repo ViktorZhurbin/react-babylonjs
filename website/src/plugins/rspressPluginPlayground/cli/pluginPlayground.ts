@@ -86,13 +86,6 @@ export function pluginPlayground(): RspressPlugin {
               files: demo.files,
               imports: Object.keys(demo.imports),
             }
-
-            // make local imports available as virtual modules
-            for (const [fileNameWithExt, sourceCode] of Object.entries(demo.localImportSources)) {
-              imports[fileNameWithExt] = fileNameWithExt
-
-              playgroundVirtualModule.writeModule(fileNameWithExt, sourceCode)
-            }
           }
         } catch (e) {
           console.error(e)
@@ -128,17 +121,6 @@ export function pluginPlayground(): RspressPlugin {
         rspack: {
           plugins: [playgroundVirtualModule],
         },
-      },
-      html: {
-        tags: [
-          {
-            tag: 'script',
-            head: true,
-            attrs: {
-              src: 'https://unpkg.com/@babel/standalone/babel.min.js',
-            },
-          },
-        ],
       },
     },
 

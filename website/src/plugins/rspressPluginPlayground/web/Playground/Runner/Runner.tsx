@@ -1,7 +1,7 @@
 import './Runner.css'
 import React, { useEffect, useRef, useState } from 'react'
-import { useActiveCode } from '@codesandbox/sandpack-react'
-import { babelTransform } from './babelTransform'
+import { useSandpack } from '@codesandbox/sandpack-react'
+import { Compiler } from './esbuild/esbuild'
 
 interface RunnerProps {
   className?: string
@@ -9,20 +9,38 @@ interface RunnerProps {
 
 const DEBOUNCE_TIME = 800
 
+declare global {
+  interface Window {
+    esBuildCompiler: Compiler | undefined
+  }
+}
+
+if (typeof window !== 'undefined' && !window.esBuildCompiler) {
+  window.esBuildCompiler = new Compiler()
+}
+
 export const Runner = (props: RunnerProps) => {
   const [error, setError] = useState<Error | undefined>()
   const [component, setComponent] = useState<React.ReactNode | null>(null)
 
-  const { code } = useActiveCode()
+  const {
+    sandpack: { files, visibleFilesFromProps },
+  } = useSandpack()
 
-  function doCompile(targetCode: string) {
+  async function doCompile() {
     try {
+      const visibleFiles = visibleFilesFromProps.reduce<Record<string, string>>((acc, fileName) => {
+        acc[fileName] = files[fileName].code
+
+        return acc
+      }, {})
+
       const start = performance.now()
-      const component = babelTransform(targetCode)
+      const component = await window.esBuildCompiler?.compile({ tree: visibleFiles })
       const end = performance.now()
 
       console.info(
-        `%cBabel took: %c${Math.round(end - start)}ms`,
+        `%cEsbuild took: %c${Math.round(end - start)}ms`,
         'background: #15889f; padding: 6px; color: white;',
         'background: #15889f; padding: 6px; color: white; font-size: 0.8rem; font-weight: bold'
       )
@@ -49,9 +67,9 @@ export const Runner = (props: RunnerProps) => {
     waitTimeoutRef.current = setTimeout(() => {
       waitTimeoutRef.current = null
 
-      doCompile(code)
+      doCompile()
     }, DEBOUNCE_TIME)
-  }, [code])
+  }, [files])
 
   return (
     <div className={`playground-runner ${props.className ?? ''}`}>
