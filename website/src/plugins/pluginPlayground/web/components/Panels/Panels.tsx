@@ -3,6 +3,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
 import { View } from '../../constants'
+import { useSyncFiles } from '../../context/hooks/useSyncFiles'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
 import { MonacoEditor } from '../MonacoEditor/MonacoEditor'
@@ -14,6 +15,8 @@ type PanelsProps = {
 }
 
 export const Panels = ({ standalone, fullHeight, isVertical }: PanelsProps) => {
+  useSyncFiles()
+
   const [view] = useLocalStorageView()
 
   const wrapperClass = clsx(styles.wrapper, {

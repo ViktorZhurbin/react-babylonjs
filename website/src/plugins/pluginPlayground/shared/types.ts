@@ -1,8 +1,7 @@
-import { SandpackFiles } from '@codesandbox/sandpack-react'
 import { Language } from './constants'
 
 export type PlaygroundProps = {
   standalone?: boolean
-  files: Record<Language, SandpackFiles>
+  files: Record<Language, Record<string, string>>
   dependencies: Record<string, string>
 }

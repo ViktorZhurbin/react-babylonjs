@@ -5,19 +5,17 @@ import { useElementSize, useFullscreen, useMergedRef } from '@mantine/hooks'
 import { SandpackProvider } from '@codesandbox/sandpack-react'
 import { PlaygroundProps } from '@pluginPlayground/shared/types'
 import { EntryFiles, Language } from '@pluginPlayground/shared/constants'
+import { useFiles } from '../../context/hooks/useState'
 import { Panels } from '../Panels/Panels'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
-import { useFilesState } from './useFilesState'
 import styles from './Playground.module.css'
 
-type PlaygroundStringifiedProps = {
-  [Key in keyof PlaygroundProps]: string
-}
-
-export const Playground = (props: PlaygroundStringifiedProps) => {
+export const Playground = (props: PlaygroundProps) => {
   const isDarkTheme = useDark()
   const fullscreenProps = useFullscreen()
+
+  const files = useFiles()
   const [language] = useLocalStorageLanguage()
 
   const wrapperSize = useElementSize()
@@ -25,33 +23,28 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
 
   const wrapperRef = useMergedRef(fullscreenProps.ref, wrapperSize.ref)
 
-  const parsedProps = parseProps(props)
-
-  const { files, onChangeLanguage } = useFilesState(parsedProps)
-
   const wrapperClass = clsx(styles.wrapper, {
     [styles.fullscreen]: fullscreenProps.fullscreen,
-    [styles.fullHeight]: parsedProps.standalone,
+    [styles.fullHeight]: props.standalone,
   })
 
-  const fullHeightPanels = Boolean(fullscreenProps.fullscreen || parsedProps.standalone)
+  const fullHeightPanels = Boolean(fullscreenProps.fullscreen || props.standalone)
 
   return (
     <div className={wrapperClass} ref={wrapperRef}>
       <SandpackProvider
-        files={files}
+        files={files[language]}
         // `react(-ts)` is a CRA template
         // seems to launch faster than `vite-react(-ts)`
         template={language === Language.tsx ? 'react-ts' : 'react'}
         theme={isDarkTheme ? 'dark' : 'light'}
-        customSetup={{ dependencies: parsedProps.dependencies }}
+        customSetup={{ dependencies: props.dependencies }}
         options={{ activeFile: EntryFiles[language] }}
         className={styles.sandpackProvider}
       >
         <div className={styles.layout}>
           <ControlPanel
             smallScreen={smallScreen}
-            onChangeLanguage={onChangeLanguage}
             fullscreen={fullscreenProps.fullscreen}
             toggleFullscreen={fullscreenProps.toggle}
           />
@@ -59,22 +52,10 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
           <Panels
             isVertical={smallScreen}
             fullHeight={fullHeightPanels}
-            standalone={parsedProps.standalone}
+            standalone={props.standalone}
           />
         </div>
       </SandpackProvider>
     </div>
   )
-}
-
-/**
- * Parse props, as they come JSON.stringified.
- * Without stringification passing object types as props in MDX tend to break things.
- */
-function parseProps(props: PlaygroundStringifiedProps): PlaygroundProps {
-  return Object.fromEntries(
-    Object.entries(props).map(([key, value]) => {
-      return [key, JSON.parse(value)]
-    })
-  ) as PlaygroundProps
 }
