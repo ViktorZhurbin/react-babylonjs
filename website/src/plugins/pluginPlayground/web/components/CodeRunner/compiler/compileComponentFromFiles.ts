@@ -1,11 +1,10 @@
 import { Language } from '@pluginPlayground/shared/constants'
+import { FilesEntry } from '@/src/plugins/pluginPlayground/shared/types'
 import { getRollupBundledCode } from './getRollupBundledCode'
 import { getBabelTransformedFiles } from './getBabelTransformedFiles'
 import { getComponentFnFromCodeString } from './getFnFromFunctionString'
 
-export type Files = Record<string, string>
-
-export const compileComponentFromFiles = async (files: Files, language: Language) => {
+export const compileComponentFromFiles = async (files: FilesEntry, language: Language) => {
   if (!window.Babel) return
 
   // Rollup requires plugins to handle JSX/TSX,

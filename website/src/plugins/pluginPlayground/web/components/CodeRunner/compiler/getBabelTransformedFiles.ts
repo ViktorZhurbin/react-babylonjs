@@ -1,7 +1,7 @@
 import type babel from '@babel/standalone'
 import { TransformOptions } from '@babel/core'
 import { Language } from '@pluginPlayground/shared/constants'
-import { Files } from './compileComponentFromFiles'
+import { FilesEntry } from '@/src/plugins/pluginPlayground/shared/types'
 
 type Babel = typeof babel
 
@@ -14,7 +14,7 @@ declare global {
 }
 
 type GetBabelTransformedFiles = {
-  files: Files
+  files: FilesEntry
   language: Language
 }
 
@@ -27,7 +27,7 @@ export function getBabelTransformedFiles({ files, language }: GetBabelTransforme
     presets.push([availablePresets.typescript, { allExtensions: true, isTSX: true }])
   }
 
-  return Object.keys(files).reduce<Files>((acc, fileName) => {
+  return Object.keys(files).reduce<FilesEntry>((acc, fileName) => {
     const code = files[fileName]
 
     const fileResult = transform(code, { presets })

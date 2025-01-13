@@ -4,10 +4,10 @@ import {
   isRelativeImport,
   prepareFileNameWithExt,
 } from '@/src/plugins/pluginPlayground/shared/pathHelpers'
-import { Files } from './compileComponentFromFiles'
+import { FilesEntry } from '@/src/plugins/pluginPlayground/shared/types'
 
 type GetBundledCode = {
-  files: Files
+  files: FilesEntry
   language: Language
 }
 
@@ -40,7 +40,7 @@ export const getRollupBundledCode = async ({ files, language }: GetBundledCode) 
 
 // Based off of https://rollupjs.org/faqs/#how-do-i-run-rollup-itself-in-a-browser
 // Resolve and load modules to be bundled
-function loaderPlugin(files: Files, language: Language): Plugin {
+function loaderPlugin(files: FilesEntry, language: Language): Plugin {
   return {
     name: 'in-memory-loader',
     resolveId(source) {

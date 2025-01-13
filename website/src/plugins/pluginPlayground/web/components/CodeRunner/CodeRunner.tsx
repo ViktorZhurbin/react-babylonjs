@@ -1,13 +1,14 @@
 import { createElement, ReactNode, useState } from 'react'
 import { useDebouncedCallback, useShallowEffect } from '@mantine/hooks'
 import { Language } from '@pluginPlayground/shared/constants'
+import { FilesEntry } from '../../../shared/types'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { compileComponentFromFiles } from './compiler'
 
 const DEBOUNCE_TIME = 500
 
 type CodeRunnerProps = {
-  files: Record<string, string>
+  files: FilesEntry
   setError: (error: Error | undefined) => void
 }
 
@@ -16,7 +17,7 @@ export const CodeRunner = ({ files, setError }: CodeRunnerProps) => {
 
   const [language] = useLocalStorageLanguage()
 
-  const getComponent = async (files: Record<string, string>, language: Language) => {
+  const getComponent = async (files: FilesEntry, language: Language) => {
     try {
       const start = performance.now()
       const component = await compileComponentFromFiles(files, language)
