@@ -1,26 +1,45 @@
-import { useShallowEffect } from '@mantine/hooks'
-import { useSandpack } from '@codesandbox/sandpack-react'
+import { shallowEqual, useShallowEffect } from '@mantine/hooks'
+import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react'
+import { useSaveFiles } from '../../hooks/useSaveFiles'
+import { FilesEntry } from '../../../shared/types'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { useObservableState } from './useState'
 
-// Update state$.files when sandpack.files change
+/**
+ * When user starts typing in the editor, ie sandpack.files change,
+ * - Update state$.files, to persist locally
+ * - Save files to db, when applicable
+ */
 export const useSyncFiles = () => {
+  const state$ = useObservableState()
   const { sandpack } = useSandpack()
   const [language] = useLocalStorageLanguage()
-  const state$ = useObservableState()
+
+  const saveFilesToDb = useSaveFiles()
+  const filesForLanguage = state$.files[language]
 
   useShallowEffect(() => {
-    const isCodeNotBeingChanged = sandpack.status !== 'running'
+    const visibleFiles = getVisibleFiles(sandpack.visibleFilesFromProps, sandpack.files)
 
-    if (isCodeNotBeingChanged) return
+    const isSandpackRunning = sandpack.status === 'running'
+    const areFilesUnchanged = shallowEqual(filesForLanguage.get(), visibleFiles)
 
-    const files = sandpack.visibleFilesFromProps.reduce<Record<string, string>>((acc, fileName) => {
-      const file = sandpack.files[fileName]
-      acc[fileName] = typeof file === 'string' ? file : file.code
+    if (!isSandpackRunning || areFilesUnchanged) {
+      console.log('no update')
+      return
+    }
 
-      return acc
-    }, {})
-
-    state$.files[language].set(files)
+    saveFilesToDb(visibleFiles)
+    filesForLanguage.set(visibleFiles)
   }, [sandpack.files])
+}
+
+function getVisibleFiles(fileNames: string[], files: SandpackFiles) {
+  return fileNames.reduce<FilesEntry>((acc, fileName) => {
+    const file = files[fileName]
+
+    acc[fileName] = typeof file === 'string' ? file : file?.code ?? ''
+
+    return acc
+  }, {})
 }

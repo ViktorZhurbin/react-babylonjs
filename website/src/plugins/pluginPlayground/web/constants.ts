@@ -8,3 +8,7 @@ export enum LocalStorage {
   View = 'react-babylonjs-playground-view',
   Language = 'react-babylonjs-playground-language',
 }
+
+export enum SearchParams {
+  PgId = 'pgId',
+}
