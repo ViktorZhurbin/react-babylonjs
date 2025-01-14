@@ -1,61 +1,34 @@
 import './global.css'
-import clsx from 'clsx'
-import { useDark } from 'rspress/runtime'
-import { useElementSize, useFullscreen, useMergedRef } from '@mantine/hooks'
-import { SandpackProvider } from '@codesandbox/sandpack-react'
-import { PlaygroundProps } from '@pluginPlayground/shared/types'
-import { EntryFiles, Language } from '@pluginPlayground/shared/constants'
-import { useFiles } from '../../context/hooks/useState'
-import { Panels } from '../Panels/Panels'
-import { ControlPanel } from '../ControlPanel/ControlPanel'
-import { useLocalStorageLanguage } from '../../hooks/localStorage'
-import styles from './Playground.module.css'
+import { PlaygroundProps } from '../../../shared/types'
+import { StateProvider } from '../../context/StateProvider'
+import { useIsPlaygroundPage } from '../../hooks/location'
+import { PlaygroundMain } from '../PlaygroundMain/PlaygroundMain'
+import { PlaygroundSmall } from '../PlaygroundSmall/PlaygroundSmall'
 
-export const Playground = (props: PlaygroundProps) => {
-  const isDarkTheme = useDark()
-  const fullscreenProps = useFullscreen()
+type PlaygroundStringifiedProps = {
+  [Key in keyof PlaygroundProps]: string
+}
 
-  const files = useFiles()
-  const [language] = useLocalStorageLanguage()
-
-  const wrapperSize = useElementSize()
-  const smallScreen = wrapperSize.width < 580
-
-  const wrapperRef = useMergedRef(fullscreenProps.ref, wrapperSize.ref)
-
-  const wrapperClass = clsx(styles.wrapper, {
-    [styles.fullscreen]: fullscreenProps.fullscreen,
-    [styles.fullHeight]: props.standalone,
-  })
-
-  const fullHeightPanels = Boolean(fullscreenProps.fullscreen || props.standalone)
+export const Playground = (props: PlaygroundStringifiedProps) => {
+  const parsedProps = parseProps(props)
+  const isPlaygroundPage = useIsPlaygroundPage()
+  const PlaygroundComponent = isPlaygroundPage ? PlaygroundMain : PlaygroundSmall
 
   return (
-    <div className={wrapperClass} ref={wrapperRef}>
-      <SandpackProvider
-        files={files[language]}
-        // `react(-ts)` is a CRA template
-        // seems to launch faster than `vite-react(-ts)`
-        template={language === Language.tsx ? 'react-ts' : 'react'}
-        theme={isDarkTheme ? 'dark' : 'light'}
-        customSetup={{ dependencies: props.dependencies }}
-        options={{ activeFile: EntryFiles[language] }}
-        className={styles.sandpackProvider}
-      >
-        <div className={styles.layout}>
-          <ControlPanel
-            smallScreen={smallScreen}
-            fullscreen={fullscreenProps.fullscreen}
-            toggleFullscreen={fullscreenProps.toggle}
-          />
-
-          <Panels
-            isVertical={smallScreen}
-            fullHeight={fullHeightPanels}
-            standalone={props.standalone}
-          />
-        </div>
-      </SandpackProvider>
-    </div>
+    <StateProvider shouldSync={isPlaygroundPage} initialState={{ files: parsedProps.files }}>
+      <PlaygroundComponent {...parsedProps} />
+    </StateProvider>
   )
+}
+
+/**
+ * Parse props, as they come JSON.stringified.
+ * Without stringification having code strings (props.files) in MDX tends to break things.
+ */
+function parseProps(props: PlaygroundStringifiedProps): PlaygroundProps {
+  return Object.fromEntries(
+    Object.entries(props).map(([key, value]) => {
+      return [key, JSON.parse(value)]
+    })
+  ) as PlaygroundProps
 }

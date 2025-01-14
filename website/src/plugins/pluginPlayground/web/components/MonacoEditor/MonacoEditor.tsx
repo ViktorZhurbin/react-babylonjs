@@ -1,10 +1,11 @@
 import { useDark } from '@rspress/core/runtime'
-import { useActiveCode } from '@codesandbox/sandpack-react'
 import Editor from '@monaco-editor/react'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { EditorTheme } from './theme'
 import { MonacoLanguage } from './constants'
+import { useActiveMainFile } from './useActiveCode'
 import { initMonacoEditor } from './initMonacoEditor'
+import { useSaveFileToDb } from './useSaveFiles'
 
 if (typeof window !== 'undefined') {
   initMonacoEditor()
@@ -15,17 +16,18 @@ export function MonacoEditor() {
   const theme = isDark ? EditorTheme.Dark : EditorTheme.Light
 
   const [language] = useLocalStorageLanguage()
-  const { code, updateCode } = useActiveCode()
+  const activeFile = useActiveMainFile()
+  const saveFile = useSaveFileToDb()
 
   return (
     <Editor
       theme={theme}
       path="App.tsx"
       defaultLanguage="typescript"
-      defaultValue={code}
-      value={code}
+      value={activeFile.get()}
       onChange={(code = '') => {
-        updateCode(code, true)
+        activeFile.set(code)
+        saveFile(code)
       }}
       language={MonacoLanguage[language]}
       options={{

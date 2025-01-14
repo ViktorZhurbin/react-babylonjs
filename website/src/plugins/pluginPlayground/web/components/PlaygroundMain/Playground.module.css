@@ -1,0 +1,17 @@
+.wrapper {
+  --border: 1px solid var(--sp-colors-surface2);
+  border: var(--border);
+  background-color: var(--sp-colors-surface1);
+  height: calc(100dvh - var(--rp-nav-height));
+
+  &.fullscreen {
+    height: 100dvh;
+    overflow: auto;
+  }
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

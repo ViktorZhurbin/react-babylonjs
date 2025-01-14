@@ -7,14 +7,14 @@ export const usePlaygroundId = () => {
   return searchParams.get(SearchParams.PgId)
 }
 
-export const useIsPlayground = () => {
+export const useIsPlaygroundPage = () => {
   const { pathname } = useLocation()
 
   return pathname.endsWith('/playground')
 }
 
 export const usePlayground = () => {
-  const isPlayground = useIsPlayground()
+  const isPlayground = useIsPlaygroundPage()
   const pgId = usePlaygroundId()
 
   return { isPlayground, pgId }

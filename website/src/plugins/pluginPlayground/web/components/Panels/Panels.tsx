@@ -1,22 +1,20 @@
 import clsx from 'clsx'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
-import { SandpackCodeEditor, SandpackStack } from '@codesandbox/sandpack-react'
+import { SandpackStack } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
 import { View } from '../../constants'
-import { useSyncFiles } from '../../context/hooks/useSyncFiles'
+import { FilesEntry } from '../../../shared/types'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
-import { MonacoEditor } from '../MonacoEditor/MonacoEditor'
 
 type PanelsProps = {
-  standalone?: boolean
   fullHeight: boolean
   isVertical: boolean
+  files: FilesEntry
+  editor: React.ReactElement
 }
 
-export const Panels = ({ standalone, fullHeight, isVertical }: PanelsProps) => {
-  useSyncFiles()
-
+export const Panels = ({ editor, files, fullHeight, isVertical }: PanelsProps) => {
   const [view] = useLocalStorageView()
 
   const wrapperClass = clsx(styles.wrapper, {
@@ -40,14 +38,7 @@ export const Panels = ({ standalone, fullHeight, isVertical }: PanelsProps) => {
           order={isVertical ? 1 : 0}
           className={getHiddenClass(view === View.Preview)}
         >
-          {standalone ? (
-            <SandpackStack className={styles.sandpackStack}>
-              <MonacoEditor />
-            </SandpackStack>
-          ) : (
-            // Monaco wouldn't handle multiple files yet, and is heavier overall. Using CodeMirror for demos for now
-            <SandpackCodeEditor showRunButton={false} className={styles.sandpackStack} />
-          )}
+          {editor}
         </Panel>
 
         {view === View.Split && <PanelResizeHandle className={styles.resizeHandle} />}
@@ -59,7 +50,7 @@ export const Panels = ({ standalone, fullHeight, isVertical }: PanelsProps) => {
           className={getHiddenClass(view === View.Code)}
         >
           <SandpackStack className={styles.sandpackStack}>
-            <Preview />
+            <Preview files={files} />
           </SandpackStack>
         </Panel>
       </PanelGroup>
