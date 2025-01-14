@@ -1,25 +1,23 @@
 import clsx from 'clsx'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
-import { SandpackStack } from '@codesandbox/sandpack-react'
 import { Preview } from '../Preview/Preview'
 import { View } from '../../constants'
 import { FilesEntry } from '../../../shared/types'
+import { useIsSmallScreen } from '../../context/Layout'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
 
 type PanelsProps = {
-  fullHeight: boolean
-  isVertical: boolean
   files: FilesEntry
   editor: React.ReactElement
 }
 
-export const Panels = ({ editor, files, fullHeight, isVertical }: PanelsProps) => {
+export const Panels = ({ editor, files }: PanelsProps) => {
   const [view] = useLocalStorageView()
+  const isVertical = useIsSmallScreen()
 
   const wrapperClass = clsx(styles.wrapper, {
     [styles.vertical]: isVertical,
-    [styles.fullHeight]: fullHeight,
     [styles.singlePanel]: view !== View.Split,
   })
 
@@ -49,9 +47,7 @@ export const Panels = ({ editor, files, fullHeight, isVertical }: PanelsProps) =
           order={isVertical ? 0 : 1}
           className={getHiddenClass(view === View.Code)}
         >
-          <SandpackStack className={styles.sandpackStack}>
-            <Preview files={files} />
-          </SandpackStack>
+          <Preview files={files} />
         </Panel>
       </PanelGroup>
     </div>

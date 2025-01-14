@@ -1,11 +1,11 @@
 import { useSandpack } from '@codesandbox/sandpack-react'
 import { Language } from '../../../shared/constants'
-import { useObservableState } from '../../context/hooks/useState'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
+import { useFilesContext } from '../../context/Files'
 
 export const useSetLanguage = () => {
   const { sandpack } = useSandpack()
-  const state$ = useObservableState()
+  const state$ = useFilesContext()
   const [prevLanguage, setLanguage] = useLocalStorageLanguage()
 
   return (nextLanguage: Language) => {

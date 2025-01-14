@@ -1,9 +1,6 @@
 .wrapper {
   height: 400px;
-
-  &.fullHeight {
-    flex-grow: 1;
-  }
+  flex-grow: 1;
 
   &.vertical:not(&.singlePanel, &.fullHeight) {
     height: 600px;
@@ -12,10 +9,6 @@
 
 .hiddenPanel {
   display: none;
-}
-
-.sandpackStack {
-  height: 100%;
 }
 
 .resizeHandle {

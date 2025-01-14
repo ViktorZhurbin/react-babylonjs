@@ -1,9 +1,9 @@
 import { EntryFiles } from '../../../shared/constants'
-import { useObservableState } from '../../context/hooks/useState'
+import { useFilesContext } from '../../context/Files'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 
 export const useActiveMainFile = () => {
-  const state$ = useObservableState()
+  const state$ = useFilesContext()
   const [language] = useLocalStorageLanguage()
 
   const entryFile = EntryFiles[language]

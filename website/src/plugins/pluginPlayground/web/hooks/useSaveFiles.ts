@@ -5,13 +5,13 @@ import { FilesEntry } from '../../shared/types'
 import { addFiles } from '../state/addFiles'
 import { updateFiles } from '../state/updateFiles'
 import { useLocalStorageLanguage } from './localStorage'
-import { useObservableState } from '../context/hooks/useState'
 import { usePlayground } from './location'
+import { useFilesContext } from '../context/Files'
 
 const DEBOUNCE_TIME = 1000
 
 export const useSaveFiles = () => {
-  const state$ = useObservableState()
+  const state$ = useFilesContext()
   const { isPlayground, pgId } = usePlayground()
   const [, setSearchParams] = useSearchParams()
   const [language] = useLocalStorageLanguage()

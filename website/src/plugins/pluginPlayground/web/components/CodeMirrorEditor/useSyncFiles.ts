@@ -2,14 +2,14 @@ import { shallowEqual, useShallowEffect } from '@mantine/hooks'
 import { SandpackFiles, useSandpack } from '@codesandbox/sandpack-react'
 import { FilesEntry } from '../../../shared/types'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
-import { useObservableState } from '../../context/hooks/useState'
+import { useFilesContext } from '../../context/Files'
 
 /**
  * When user starts typing in the editor `sandpack.files` change.
  * Then we need to sync them with state$.files
  */
 export const useSyncFiles = () => {
-  const state$ = useObservableState()
+  const state$ = useFilesContext()
   const { sandpack } = useSandpack()
   const [language] = useLocalStorageLanguage()
 

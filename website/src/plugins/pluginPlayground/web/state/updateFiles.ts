@@ -1,8 +1,8 @@
-import { State } from '../context/state.types'
+import { PlaygroundProps } from '../../shared/types'
 import { db } from './db'
 import { stringifyFiles } from './helpers'
 
-export function updateFiles(pgId: string, files: Partial<State['files']>) {
+export function updateFiles(pgId: string, files: Partial<PlaygroundProps['files']>) {
   const preparedFiles = stringifyFiles(files)
 
   db.transact(

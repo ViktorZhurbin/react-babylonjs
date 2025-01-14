@@ -1,7 +1,6 @@
-import { Language } from '../../shared/constants'
-import { State } from '../context/state.types'
+import { PlaygroundProps } from '../../shared/types'
 
-export const stringifyFiles = (files: Partial<State['files']>) =>
+export const stringifyFiles = (files: Partial<PlaygroundProps['files']>) =>
   Object.entries(files).reduce<Record<string, string>>((acc, [lang, file]) => {
     acc[lang] = JSON.stringify(file)
 

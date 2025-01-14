@@ -1,0 +1,10 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &.fullscreen {
+    height: 100dvh;
+    overflow: auto;
+  }
+}

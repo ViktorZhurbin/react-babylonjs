@@ -1,25 +1,24 @@
 import clsx from 'clsx'
 // import { OpenInCodeSandboxButton } from '@codesandbox/sandpack-react'
-import { View } from '../../constants'
-import { ToggleButtonGroup } from '../ToggleButtonGroup/ToggleButtonGroup'
-import { FullscreenToggleButton } from '../FullscreenToggleButton/FullscreenToggleButton'
-import { useLocalStorageLanguage, useLocalStorageView } from '../../hooks/localStorage'
-import { getViewValues, LanguageValues } from './labels'
 import { Language } from '../../../shared/constants'
+import { View } from '../../constants'
+import { useIsSmallScreen } from '../../context/Layout'
+import { useLocalStorageLanguage, useLocalStorageView } from '../../hooks/localStorage'
+import { FullscreenToggleButton } from '../FullscreenToggleButton/FullscreenToggleButton'
+import { ToggleButtonGroup } from '../ToggleButtonGroup/ToggleButtonGroup'
 import styles from './ControlPanel.module.css'
+import { getViewValues, LanguageValues } from './labels'
 
 type ControlPanelProps = {
-  smallScreen: boolean
-  fullscreen: boolean
-  toggleFullscreen: () => void
   setLanguage: (language: Language) => void
 }
 
 export const ControlPanel = (props: ControlPanelProps) => {
-  const { smallScreen, fullscreen, toggleFullscreen, setLanguage } = props
+  const { setLanguage } = props
 
   const [view, setView] = useLocalStorageView()
   const [language] = useLocalStorageLanguage()
+  const smallScreen = useIsSmallScreen()
 
   return (
     <div className={styles.wrapper}>
@@ -34,11 +33,7 @@ export const ControlPanel = (props: ControlPanelProps) => {
       )}
 
       <div className={clsx(styles.section, { [styles.smallScreen]: smallScreen })}>
-        <FullscreenToggleButton
-          smallScreen={smallScreen}
-          fullscreen={fullscreen}
-          onClick={toggleFullscreen}
-        />
+        <FullscreenToggleButton smallScreen={smallScreen} />
         {/* <OpenInCodeSandboxButton /> */}
       </div>
     </div>
