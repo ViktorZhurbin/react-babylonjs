@@ -3,22 +3,16 @@ import { javascript } from '@codemirror/lang-javascript'
 import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode'
 import CodeMirror from '@uiw/react-codemirror'
 import { useDark } from 'rspress/runtime'
-import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { useActiveCode } from '../MonacoEditor/useActiveCode'
 
 export const CodeMirrorEditor = () => {
   const theme = useDark() ? vscodeDark : vscodeLight
-
-  const activeCode = useActiveCode()
-
-  const [language] = useLocalStorageLanguage()
+  const { code, updateCode } = useActiveCode()
 
   return (
     <CodeMirror
-      value={activeCode.code}
-      onChange={(code) => {
-        activeCode.updateCode(code, language)
-      }}
+      value={code}
+      onChange={updateCode}
       extensions={[javascript({ jsx: true, typescript: true })]}
       theme={theme}
       basicSetup={{

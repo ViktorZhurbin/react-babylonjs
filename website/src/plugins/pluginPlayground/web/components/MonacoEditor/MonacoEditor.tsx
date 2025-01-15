@@ -26,7 +26,7 @@ export function MonacoEditor() {
       defaultLanguage="typescript"
       value={code}
       onChange={(code = '') => {
-        updateCode(code, language)
+        updateCode(code)
         saveFile(code)
       }}
       language={MonacoLanguage[language]}

@@ -1,4 +1,4 @@
-import { EntryFiles, Language } from '../../../shared/constants'
+import { EntryFiles } from '../../../shared/constants'
 import { useFilesContext } from '../../context/Files'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 
@@ -11,11 +11,8 @@ export const useActiveCode = () => {
 
   return {
     code,
-    updateCode: (value: string, language: Language) => {
-      console.log('updateCode')
+    updateCode: (value: string) => {
       const entryFile = EntryFiles[language]
-
-      console.log({ isSame: value === code, language, entryFile, value })
 
       setFiles((prev) => {
         const update = {
