@@ -1,11 +1,11 @@
-import typeDeclarations from '_playground_virtual_types'
 import { loader, Monaco } from '@monaco-editor/react'
 import { shikiToMonaco } from '@shikijs/monaco'
+import typeDeclarations from '_playground_virtual_types'
 import { createHighlighter } from 'shiki'
-import { EditorTheme } from './theme'
+import { MonacoTheme } from './constants'
 
 const highlighter = await createHighlighter({
-  themes: [EditorTheme.Dark, EditorTheme.Light],
+  themes: [MonacoTheme.Dark, MonacoTheme.Light],
   langs: ['javascript', 'typescript'],
 })
 

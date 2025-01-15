@@ -1,11 +1,11 @@
 import { id } from '@instantdb/react'
-import { useSearchParams } from 'rspress/runtime'
 import { useDebouncedCallback } from '@mantine/hooks'
-import { addFiles } from '../../db/addFiles'
-import { updateFiles } from '../../db/updateFiles'
-import { usePlayground } from '../../hooks/location'
-import { useLocalStorageLanguage } from '../../hooks/localStorage'
-import { EntryFiles } from '../../../shared/constants'
+import { useSearchParams } from 'rspress/runtime'
+import { EntryFiles } from '../../shared/constants'
+import { addFiles } from '../db/addFiles'
+import { updateFiles } from '../db/updateFiles'
+import { useLocalStorageLanguage } from './localStorage'
+import { usePlayground } from './location'
 
 const DEBOUNCE_TIME = 1000
 

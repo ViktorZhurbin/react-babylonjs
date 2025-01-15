@@ -4,9 +4,9 @@ import { PlaygroundProps } from '../../../shared/types'
 import { FilesProvider } from '../../context/Files'
 import { LayoutProvider } from '../../context/Layout'
 import { useIsPlaygroundPage } from '../../hooks/location'
-import { CodeMirrorEditor } from '../CodeMirrorEditor/CodeMirrorEditor'
 import { ControlPanel } from '../ControlPanel/ControlPanel'
-import { MonacoEditor } from '../MonacoEditor/MonacoEditor'
+import { EditorCodeMirror } from '../EditorCodeMirror/EditorCodeMirror'
+import { EditorMonaco } from '../EditorMonaco/EditorMonaco'
 import { Panels } from '../Panels/Panels'
 import './global.css'
 import styles from './Playground.module.css'
@@ -18,7 +18,7 @@ type PlaygroundStringifiedProps = {
 export const Playground = (props: PlaygroundStringifiedProps) => {
   const parsedProps = parseProps(props)
   const isPlaygroundPage = useIsPlaygroundPage()
-  const editor = isPlaygroundPage ? <MonacoEditor /> : <CodeMirrorEditor />
+  const editor = isPlaygroundPage ? <EditorMonaco /> : <EditorCodeMirror />
 
   const fullscreenProps = useFullscreen()
   const wrapperSize = useElementSize()

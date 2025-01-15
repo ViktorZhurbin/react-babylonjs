@@ -1,6 +1,6 @@
-import { EntryFiles } from '../../../shared/constants'
-import { useLocalStorageLanguage } from '../../hooks/localStorage'
-import { useCurrentFiles } from '../../hooks/useCurrentFiles'
+import { EntryFiles } from '../../shared/constants'
+import { useLocalStorageLanguage } from './localStorage'
+import { useCurrentFiles } from './useCurrentFiles'
 
 export const useActiveCode = () => {
   const [language] = useLocalStorageLanguage()

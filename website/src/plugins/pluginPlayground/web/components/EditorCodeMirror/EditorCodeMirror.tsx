@@ -1,11 +1,11 @@
-import './styles.css'
 import { javascript } from '@codemirror/lang-javascript'
 import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode'
 import CodeMirror from '@uiw/react-codemirror'
 import { useDark } from 'rspress/runtime'
-import { useActiveCode } from '../MonacoEditor/useActiveCode'
+import { useActiveCode } from '../../hooks/useActiveCode'
+import './EditorCodeMirror.css'
 
-export const CodeMirrorEditor = () => {
+export const EditorCodeMirror = () => {
   const theme = useDark() ? vscodeDark : vscodeLight
   const { code, updateCode } = useActiveCode()
 
