@@ -28,6 +28,11 @@
     color: var(--sp-colors-disabled);
   }
 
+  &:focus,
+  &:focus-visible {
+    outline: revert;
+  }
+
   &:hover:not(:disabled, [data-active='true']) {
     color: var(--sp-colors-hover);
     background-color: var(--sp-colors-surface3);

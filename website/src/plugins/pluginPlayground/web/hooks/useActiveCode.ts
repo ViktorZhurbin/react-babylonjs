@@ -1,21 +1,14 @@
-import { EntryFiles } from '../../shared/constants'
-import { useLocalStorageLanguage } from './localStorage'
 import { useCurrentFiles } from './useCurrentFiles'
 
 export const useActiveCode = () => {
-  const [language] = useLocalStorageLanguage()
-  const { currentFiles, updateCurrentFiles } = useCurrentFiles()
-
-  const entryFile = EntryFiles[language]
-  const code = currentFiles[entryFile]
+  const { currentFiles, updateCurrentFiles, activeFile } = useCurrentFiles()
 
   return {
-    code,
-    updateCode: (value: string) => {
-      const entryFile = EntryFiles[language]
+    code: currentFiles[activeFile],
 
+    updateCode: (value: string) => {
       updateCurrentFiles({
-        [entryFile]: value,
+        [activeFile]: value,
       })
     },
   }

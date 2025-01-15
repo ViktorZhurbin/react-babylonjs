@@ -5,6 +5,7 @@ import { View } from '../../constants'
 import { useIsSmallScreen } from '../../context/Layout'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
+import { FileTabs } from '../FileTabs/FileTabs'
 
 type PanelsProps = {
   editor: React.ReactElement
@@ -34,6 +35,7 @@ export const Panels = ({ editor }: PanelsProps) => {
           order={isVertical ? 1 : 0}
           className={getHiddenClass(view === View.Preview)}
         >
+          <FileTabs />
           {editor}
         </Panel>
 

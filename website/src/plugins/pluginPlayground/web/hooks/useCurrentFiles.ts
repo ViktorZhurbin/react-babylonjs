@@ -4,7 +4,7 @@ import { useFilesContext } from '../context/Files'
 import { useLocalStorageLanguage } from './localStorage'
 
 export const useCurrentFiles = () => {
-  const { files, setFiles } = useFilesContext()
+  const { files, setFiles, activeFile, setActiveFile } = useFilesContext()
   const [language] = useLocalStorageLanguage()
 
   const currentFiles = files[language]
@@ -24,5 +24,5 @@ export const useCurrentFiles = () => {
     [language, setFiles]
   )
 
-  return { currentFiles, updateCurrentFiles }
+  return { currentFiles, updateCurrentFiles, activeFile, setActiveFile }
 }
