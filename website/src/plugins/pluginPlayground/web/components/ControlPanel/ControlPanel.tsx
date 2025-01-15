@@ -27,7 +27,6 @@ export const ControlPanel = () => {
 
       <div className={clsx(styles.section, { [styles.smallScreen]: smallScreen })}>
         <FullscreenToggleButton smallScreen={smallScreen} />
-        {/* <OpenInCodeSandboxButton /> */}
       </div>
     </div>
   )

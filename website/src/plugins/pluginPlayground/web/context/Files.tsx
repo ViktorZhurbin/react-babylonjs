@@ -6,21 +6,28 @@ type Files = PlaygroundProps['files']
 type FilesContextValue = {
   files: Files
   setFiles: React.Dispatch<React.SetStateAction<Files>>
+  dependencies: PlaygroundProps['dependencies']
 }
 
 const FilesContext = createContext<FilesContextValue | undefined>(undefined)
 
-function FilesProvider(props: { children: React.ReactNode; initialValue: Files }) {
-  const [files, setFiles] = useState(props.initialValue)
+type FilesProviderProps = {
+  children: React.ReactNode
+  initialValue: PlaygroundProps
+}
+
+function FilesProvider({ initialValue, children }: FilesProviderProps) {
+  const [files, setFiles] = useState(initialValue.files)
 
   return (
     <FilesContext.Provider
       value={{
         files,
         setFiles,
+        dependencies: initialValue.dependencies,
       }}
     >
-      {props.children}
+      {children}
     </FilesContext.Provider>
   )
 }

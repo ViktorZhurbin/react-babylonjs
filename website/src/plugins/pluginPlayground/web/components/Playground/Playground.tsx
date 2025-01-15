@@ -33,7 +33,7 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
   return (
     <div className={wrapperClass} ref={wrapperRef}>
       <LayoutProvider value={{ fullscreenProps, smallScreen }}>
-        <FilesProvider initialValue={parsedProps.files}>
+        <FilesProvider initialValue={parsedProps}>
           <div className={styles.layout}>
             <ControlPanel />
             <Panels editor={editor} />
