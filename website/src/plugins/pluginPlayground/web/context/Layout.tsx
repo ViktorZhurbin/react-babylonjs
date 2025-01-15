@@ -1,18 +1,26 @@
+import type { useFullscreen } from '@mantine/hooks'
 import { createContext, useContext } from 'react'
-import { useFullscreen } from '@mantine/hooks'
 
 type State = {
   smallScreen: boolean
   fullscreenProps: ReturnType<typeof useFullscreen>
 }
 
-const LayoutContext = createContext<State>(undefined as any)
+const LayoutContext = createContext<State | undefined>(undefined)
 
 function LayoutProvider(props: { children: React.ReactNode; value: State }) {
   return <LayoutContext.Provider value={props.value}>{props.children}</LayoutContext.Provider>
 }
 
-const useLayoutContext = () => useContext(LayoutContext)
+const useLayoutContext = () => {
+  const context = useContext(LayoutContext)
+
+  if (context === undefined) {
+    throw new Error('useLayoutContext must be used within a LayoutProvider')
+  }
+
+  return context
+}
 
 const useFullscreenProps = () => {
   const value = useLayoutContext()

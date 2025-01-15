@@ -6,7 +6,8 @@
     "build": "rspress build",
     "dev": "rspress dev --port 5173",
     "preview": "rspress preview",
-    "build:analyze": "BUNDLE_ANALYZE=true yarn build"
+    "build:analyze": "BUNDLE_ANALYZE=true yarn build",
+    "format": "prettier --write src"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.2",

@@ -1,11 +1,11 @@
 import { useDebouncedCallback } from '@mantine/hooks'
 import { toMerged } from 'es-toolkit'
 import { useSearchParams } from 'rspress/runtime'
+import { SearchParams } from '../constants'
 import { createSnippet, updateSnippet } from '../db/crud'
+import { makeId } from '../utils/makeId'
 import { useSnippetId } from './location'
 import { useFiles } from './useCurrentFiles'
-import { makeId } from '../utils/makeId'
-import { SearchParams } from '../constants'
 
 const DEBOUNCE_TIME = 1000
 

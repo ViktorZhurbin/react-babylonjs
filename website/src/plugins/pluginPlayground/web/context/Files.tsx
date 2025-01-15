@@ -1,8 +1,8 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { FilesEntry, PlaygroundProps } from '../../shared/types'
-import { EntryFiles } from '../../shared/constants'
-import { useLocalStorageLanguage } from '../hooks/localStorage'
 import { toMerged } from 'es-toolkit'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { EntryFiles } from '../../shared/constants'
+import type { PlaygroundProps } from '../../shared/types'
+import { useLocalStorageLanguage } from '../hooks/localStorage'
 
 type Files = PlaygroundProps['files']
 
@@ -10,6 +10,7 @@ type FilesContextValue = {
   files: Files
   setFiles: React.Dispatch<React.SetStateAction<Files>>
   updateFiles: (update: Partial<Files>) => void
+  setInitialFiles: () => void
 
   activeFile: string
   setActiveFile: React.Dispatch<React.SetStateAction<string>>
@@ -27,12 +28,13 @@ type FilesProviderProps = {
 function FilesProvider({ initialValue, children }: FilesProviderProps) {
   const [files, setFiles] = useState(initialValue.files)
 
-  const updateFiles = useCallback(
-    (update: Partial<Files>) => {
-      setFiles((prevFiles) => toMerged(prevFiles, update))
-    },
-    [setFiles]
-  )
+  const updateFiles = useCallback((update: Partial<Files>) => {
+    setFiles((prevFiles) => toMerged(prevFiles, update))
+  }, [])
+
+  const setInitialFiles = useCallback(() => {
+    setFiles(initialValue.files)
+  }, [initialValue.files])
 
   const [language] = useLocalStorageLanguage()
   const [activeFile, setActiveFile] = useState(EntryFiles[language])
@@ -43,14 +45,15 @@ function FilesProvider({ initialValue, children }: FilesProviderProps) {
     const nextActiveFile = fileNames.find((fileName) => fileName.includes(activeFileNameBase))
 
     setActiveFile(nextActiveFile ?? EntryFiles[language])
-  }, [language])
+  }, [language, activeFile, initialValue.files])
 
   return (
     <FilesContext.Provider
       value={{
         files,
         setFiles,
-        updateFiles: updateFiles,
+        updateFiles,
+        setInitialFiles,
 
         activeFile,
         setActiveFile,

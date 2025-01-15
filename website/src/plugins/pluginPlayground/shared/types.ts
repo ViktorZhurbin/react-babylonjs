@@ -1,4 +1,4 @@
-import { Language } from './constants'
+import type { Language } from './constants'
 
 export type FilesEntry = Record<string, string>
 

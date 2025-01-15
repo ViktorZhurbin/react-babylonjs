@@ -1,0 +1,31 @@
+.button {
+  display: grid;
+  align-content: center;
+  grid-template-areas: 'stack';
+
+  .copy,
+  .copied {
+    grid-area: stack;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    > svg {
+      margin: 0;
+    }
+  }
+
+  .copied {
+    visibility: hidden;
+  }
+
+  &.isCopied {
+    .copy {
+      visibility: hidden;
+    }
+    .copied {
+      visibility: visible;
+    }
+  }
+}

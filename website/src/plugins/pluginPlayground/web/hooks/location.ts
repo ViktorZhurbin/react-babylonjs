@@ -10,5 +10,5 @@ export const useSnippetId = () => {
 export const useIsPlaygroundPage = () => {
   const { pathname } = useLocation()
 
-  return pathname.endsWith('/playground')
+  return pathname.includes('/playground')
 }

@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
+import type { PlaygroundProps } from '../../shared/types'
+import { useFilesContext } from '../context/Files'
 import { db } from '../db/db'
 import { useSnippetId } from './location'
-import { useFilesContext } from '../context/Files'
-import { PlaygroundProps } from '../../shared/types'
 
 export const useReadFilesFromDb = () => {
-  const playgroundId = useSnippetId()
+  const snippetId = useSnippetId()
   const { setFiles } = useFilesContext()
 
   useEffect(() => {
-    if (!playgroundId) return
+    if (!snippetId) return
 
     const query = {
-      files: { $: { where: { id: playgroundId } } },
+      files: { $: { where: { snippetId } } },
     }
 
     db.queryOnce(query).then((response) => {
@@ -24,5 +24,5 @@ export const useReadFilesFromDb = () => {
 
       setFiles(files)
     })
-  }, [])
+  }, [snippetId, setFiles])
 }

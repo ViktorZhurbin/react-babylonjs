@@ -1,6 +1,6 @@
 import { id, lookup } from '@instantdb/react'
+import type { PlaygroundProps } from '../../shared/types'
 import { db } from './db'
-import { PlaygroundProps } from '../../shared/types'
 
 export function createSnippet(snippetId: string, files: PlaygroundProps['files']) {
   db.transact(

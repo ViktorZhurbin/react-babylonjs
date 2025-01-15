@@ -1,4 +1,4 @@
-import { i, init, InstaQLEntity } from '@instantdb/react'
+import { type InstaQLEntity, i, init } from '@instantdb/react'
 
 // ID for app: react-babylonjs
 const APP_ID = '273798ee-5893-4d64-a0bb-a8120ac78862'

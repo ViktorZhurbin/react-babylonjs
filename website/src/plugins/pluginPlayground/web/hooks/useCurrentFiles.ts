@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { FilesEntry } from '../../shared/types'
+import type { FilesEntry } from '../../shared/types'
 import { useFilesContext } from '../context/Files'
 import { useLocalStorageLanguage } from './localStorage'
 
