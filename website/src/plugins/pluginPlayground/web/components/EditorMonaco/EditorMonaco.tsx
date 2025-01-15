@@ -1,10 +1,11 @@
 import Editor from '@monaco-editor/react'
 import { useDark } from '@rspress/core/runtime'
 import { useActiveCode } from '../../hooks/useActiveCode'
-import { useSaveFileToDb } from '../../hooks/useSaveFiles'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
+import { useReadFilesFromDb } from '../../hooks/useLoadFilesFromDb'
 import { MonacoLanguage, MonacoTheme } from './constants'
 import { initMonacoEditor } from './initMonacoEditor'
+import { useSaveFilesToDbCallback } from '../../hooks/useSaveToDb'
 
 if (typeof window !== 'undefined') {
   initMonacoEditor()
@@ -16,7 +17,8 @@ export function EditorMonaco() {
   const [language] = useLocalStorageLanguage()
   const { code, updateCode } = useActiveCode()
 
-  const saveFile = useSaveFileToDb()
+  useReadFilesFromDb()
+  const saveToDb = useSaveFilesToDbCallback()
 
   return (
     <Editor
@@ -26,7 +28,7 @@ export function EditorMonaco() {
       value={code}
       onChange={(code = '') => {
         updateCode(code)
-        saveFile(code)
+        saveToDb(code)
       }}
       language={MonacoLanguage[language]}
       options={{

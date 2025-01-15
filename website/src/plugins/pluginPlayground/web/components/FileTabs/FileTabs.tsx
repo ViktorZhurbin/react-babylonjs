@@ -1,9 +1,9 @@
-import { useCurrentFiles } from '../../hooks/useCurrentFiles'
+import { useFiles } from '../../hooks/useCurrentFiles'
 import { Button } from '../Button/Button'
 import styles from './FileTabs.module.css'
 
 export const FileTabs = () => {
-  const { currentFiles, activeFile, setActiveFile } = useCurrentFiles()
+  const { currentFiles, activeFile, setActiveFile } = useFiles()
   const fileNames = Object.keys(currentFiles)
 
   if (fileNames.length < 2) return null

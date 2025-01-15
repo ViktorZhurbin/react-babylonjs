@@ -3,26 +3,23 @@ import { FilesEntry } from '../../shared/types'
 import { useFilesContext } from '../context/Files'
 import { useLocalStorageLanguage } from './localStorage'
 
-export const useCurrentFiles = () => {
-  const { files, setFiles, activeFile, setActiveFile } = useFilesContext()
+export const useFiles = () => {
+  const { files, updateFiles, activeFile, setActiveFile } = useFilesContext()
   const [language] = useLocalStorageLanguage()
 
   const currentFiles = files[language]
 
   const updateCurrentFiles = useCallback(
-    (updatedFiles: FilesEntry) =>
-      setFiles((prevFiles) => {
-        const update = {
-          [language]: {
-            ...prevFiles[language],
-            ...updatedFiles,
-          },
-        }
-
-        return { ...prevFiles, ...update }
-      }),
-    [language, setFiles]
+    (updatedFiles: FilesEntry) => updateFiles({ [language]: updatedFiles }),
+    [language, updateFiles]
   )
 
-  return { currentFiles, updateCurrentFiles, activeFile, setActiveFile }
+  return {
+    allFiles: files,
+    currentFiles,
+    updateCurrentFiles,
+    activeFile,
+    setActiveFile,
+    language,
+  }
 }

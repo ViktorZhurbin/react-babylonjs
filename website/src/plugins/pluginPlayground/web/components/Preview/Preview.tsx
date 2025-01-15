@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { CodeRunner } from '../CodeRunner/CodeRunner'
 import styles from './Preview.module.css'
-import { useCurrentFiles } from '../../hooks/useCurrentFiles'
+import { useFiles } from '../../hooks/useCurrentFiles'
 
 export const Preview = () => {
-  const { currentFiles } = useCurrentFiles()
+  const { currentFiles } = useFiles()
   const [error, setError] = useState<Error | undefined>()
 
   const errorOverlay = error ? <pre className={styles.error}>{error?.message}</pre> : null

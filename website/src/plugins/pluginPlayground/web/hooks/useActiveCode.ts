@@ -1,7 +1,7 @@
-import { useCurrentFiles } from './useCurrentFiles'
+import { useFiles } from './useCurrentFiles'
 
 export const useActiveCode = () => {
-  const { currentFiles, updateCurrentFiles, activeFile } = useCurrentFiles()
+  const { currentFiles, updateCurrentFiles, activeFile } = useFiles()
 
   return {
     code: currentFiles[activeFile],

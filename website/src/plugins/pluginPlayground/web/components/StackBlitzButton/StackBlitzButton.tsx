@@ -1,14 +1,14 @@
 import { IconExternalLink } from '@tabler/icons-react'
 import { Button } from '../Button/Button'
 import StackBlitzSDK from '@stackblitz/sdk'
-import { useCurrentFiles } from '../../hooks/useCurrentFiles'
+import { useFiles } from '../../hooks/useCurrentFiles'
 import { getCraTemplateFiles } from './templates/cra'
 import { useFilesContext } from '../../context/Files'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { EntryFiles } from '../../../shared/constants'
 
 export const StackBlitzButton = () => {
-  const { currentFiles } = useCurrentFiles()
+  const { currentFiles } = useFiles()
   const { dependencies } = useFilesContext()
   const [language] = useLocalStorageLanguage()
 
