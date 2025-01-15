@@ -50,7 +50,7 @@ function loaderPlugin(files: FilesEntry, language: Language): Plugin {
 
       // resolve file name from the relative import
       if (isRelativeImport(source)) {
-        const fileName = `/${prepareFileNameWithExt(source, language)}`
+        const fileName = prepareFileNameWithExt(source, language)
 
         if (files.hasOwnProperty(fileName)) {
           return fileName
