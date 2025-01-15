@@ -1,8 +1,8 @@
 import { id } from '@instantdb/react'
 import { useSearchParams } from 'rspress/runtime'
 import { useDebouncedCallback } from '@mantine/hooks'
-import { addFiles } from '../../state/addFiles'
-import { updateFiles } from '../../state/updateFiles'
+import { addFiles } from '../../db/addFiles'
+import { updateFiles } from '../../db/updateFiles'
 import { usePlayground } from '../../hooks/location'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { EntryFiles } from '../../../shared/constants'
@@ -16,16 +16,16 @@ export const useSaveFileToDb = () => {
 
   return useDebouncedCallback((code: string) => {
     const entryFile = EntryFiles[language]
-    const filesByLanguage = {
+    const filesPerLanguage = {
       [language]: { [entryFile]: code },
     }
 
     if (pgId) {
-      updateFiles(pgId, filesByLanguage)
+      updateFiles(pgId, filesPerLanguage)
     } else {
       const newPgId = id()
 
-      addFiles(newPgId, filesByLanguage)
+      addFiles(newPgId, filesPerLanguage)
       setSearchParams({ pgId: newPgId })
     }
   }, DEBOUNCE_TIME)

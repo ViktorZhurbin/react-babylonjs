@@ -1,14 +1,15 @@
-import './global.css'
-import clsx from 'clsx'
 import { useElementSize, useFullscreen, useMergedRef } from '@mantine/hooks'
-
+import clsx from 'clsx'
 import { PlaygroundProps } from '../../../shared/types'
 import { FilesProvider } from '../../context/Files'
-import { useIsPlaygroundPage } from '../../hooks/location'
-import { PlaygroundMain } from '../PlaygroundMain/PlaygroundMain'
-import { PlaygroundSmall } from '../PlaygroundSmall/PlaygroundSmall'
-import styles from './Playground.module.css'
 import { LayoutProvider } from '../../context/Layout'
+import { useIsPlaygroundPage } from '../../hooks/location'
+import { CodeMirrorEditor } from '../CodeMirrorEditor/CodeMirrorEditor'
+import { ControlPanel } from '../ControlPanel/ControlPanel'
+import { MonacoEditor } from '../MonacoEditor/MonacoEditor'
+import { Panels } from '../Panels/Panels'
+import './global.css'
+import styles from './Playground.module.css'
 
 type PlaygroundStringifiedProps = {
   [Key in keyof PlaygroundProps]: string
@@ -17,7 +18,7 @@ type PlaygroundStringifiedProps = {
 export const Playground = (props: PlaygroundStringifiedProps) => {
   const parsedProps = parseProps(props)
   const isPlaygroundPage = useIsPlaygroundPage()
-  const PlaygroundComponent = isPlaygroundPage ? PlaygroundMain : PlaygroundSmall
+  const editor = isPlaygroundPage ? <MonacoEditor /> : <CodeMirrorEditor />
 
   const fullscreenProps = useFullscreen()
   const wrapperSize = useElementSize()
@@ -26,14 +27,17 @@ export const Playground = (props: PlaygroundStringifiedProps) => {
   const wrapperRef = useMergedRef(fullscreenProps.ref, wrapperSize.ref)
 
   const wrapperClass = clsx(styles.wrapper, {
-    [styles.fullHeight]: props.standalone,
+    [styles.fullHeight]: isPlaygroundPage,
   })
 
   return (
     <div className={wrapperClass} ref={wrapperRef}>
       <LayoutProvider value={{ fullscreenProps, smallScreen }}>
-        <FilesProvider initialState={{ files: parsedProps.files }}>
-          <PlaygroundComponent />
+        <FilesProvider initialValue={parsedProps.files}>
+          <div className={styles.layout}>
+            <ControlPanel />
+            <Panels editor={editor} />
+          </div>
         </FilesProvider>
       </LayoutProvider>
     </div>

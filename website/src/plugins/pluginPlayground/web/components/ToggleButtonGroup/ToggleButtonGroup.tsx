@@ -1,5 +1,4 @@
-import clsx from 'clsx'
-import { RoundedButton } from '@codesandbox/sandpack-react'
+import { Button } from '../Button/Button'
 import styles from './ToggleButtonGroup.module.css'
 
 type ToggleButtonGroupProps<T> = {
@@ -17,14 +16,15 @@ export const ToggleButtonGroup = <T extends string>(props: ToggleButtonGroupProp
         const label = typeof entry === 'object' ? entry.label : entry
         const value = typeof entry === 'object' ? entry.value : entry
 
-        const className = clsx(styles.button, {
-          [styles.isActive]: value === activeValue,
-        })
-
         return (
-          <RoundedButton key={value} className={className} onClick={() => setValue(value)}>
+          <Button
+            key={value}
+            className={styles.button}
+            data-active={value === activeValue}
+            onClick={() => setValue(value)}
+          >
             {label}
-          </RoundedButton>
+          </Button>
         )
       })}
     </div>

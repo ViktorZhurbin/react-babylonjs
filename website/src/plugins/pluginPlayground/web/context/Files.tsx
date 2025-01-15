@@ -1,42 +1,54 @@
-import { Observable } from '@legendapp/state'
-import { ObservablePersistLocalStorage } from '@legendapp/state/persist-plugins/local-storage'
-import { use$, useObservable } from '@legendapp/state/react'
-import { synced } from '@legendapp/state/sync'
-import { createContext, useContext } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 import { PlaygroundProps } from '../../shared/types'
-import { useIsPlaygroundPage } from '../hooks/location'
+import { Language } from '../../shared/constants'
+import { LocalStorage } from '../constants'
 
-const FilesContext = createContext<Observable<{ files: PlaygroundProps['files'] }>>(
-  undefined as any
-)
+type Files = PlaygroundProps['files']
 
-function FilesProvider(props: {
-  children: React.ReactNode
-  initialState: Pick<PlaygroundProps, 'files'>
-}) {
-  const isPlaygroundPage = useIsPlaygroundPage()
+type FilesContextValue = {
+  files: Files
+  setFiles: React.Dispatch<React.SetStateAction<Files>>
+  language: Language
+  setLanguage: (language: Language) => void
+}
 
-  const state$ = useObservable(
-    isPlaygroundPage
-      ? synced({
-          initial: props.initialState,
-          persist: {
-            name: 'react-babylonjs-playground',
-            plugin: ObservablePersistLocalStorage,
-          },
-        })
-      : props.initialState
+const FilesContext = createContext<FilesContextValue | undefined>(undefined)
+
+function FilesProvider(props: { children: React.ReactNode; initialValue: Files }) {
+  const [files, setFiles] = useState(props.initialValue)
+
+  const storedLanguage = localStorage.getItem(LocalStorage.Language) as Language | null
+  const [language, setLanguage] = useState<Language>(
+    storedLanguage ? JSON.parse(storedLanguage) : Language.tsx
   )
 
-  return <FilesContext.Provider value={state$}>{props.children}</FilesContext.Provider>
+  const handleSetLanguage = useCallback((nextLanguage: Language) => {
+    setLanguage(nextLanguage)
+    localStorage.setItem(LocalStorage.Language, JSON.stringify(nextLanguage))
+  }, [])
+
+  return (
+    <FilesContext.Provider
+      value={{
+        files,
+        setFiles,
+        language,
+        setLanguage: handleSetLanguage,
+      }}
+    >
+      {props.children}
+    </FilesContext.Provider>
+  )
 }
 
-const useFilesContext = () => useContext(FilesContext)
+const useFilesContext = () => {
+  const context = useContext(FilesContext)
 
-const useFiles = () => {
-  const state$ = useFilesContext()
+  if (context === undefined) {
+    throw new Error('useFilesContext must be used within a FilesProvider')
+  }
 
-  return use$(state$.files)
+  return context
 }
 
-export { FilesProvider, useFiles, useFilesContext }
+export { FilesProvider, useFilesContext }

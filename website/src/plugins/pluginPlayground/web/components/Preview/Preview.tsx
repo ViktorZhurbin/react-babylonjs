@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { ErrorOverlay } from '@codesandbox/sandpack-react'
+import { useFilesContext } from '../../context/Files'
+import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { CodeRunner } from '../CodeRunner/CodeRunner'
-import { FilesEntry } from '../../../shared/types'
 import styles from './Preview.module.css'
 
-type PreviewProps = {
-  files: FilesEntry
-}
-
-export const Preview = ({ files }: PreviewProps) => {
+export const Preview = () => {
+  const { files } = useFilesContext()
+  const [language] = useLocalStorageLanguage()
   const [error, setError] = useState<Error | undefined>()
 
-  const errorOverlay = error ? <ErrorOverlay>{error?.message}</ErrorOverlay> : null
+  const selectedFiles = files[language]
+
+  const errorOverlay = error ? <pre className={styles.error}>{error?.message}</pre> : null
 
   return (
     <div className={styles.wrapper}>
-      <ErrorBoundary onError={setError} resetKeys={[files]} fallback={errorOverlay}>
-        <CodeRunner files={files} setError={setError} />
+      <ErrorBoundary onError={setError} resetKeys={[selectedFiles]} fallback={errorOverlay}>
+        <CodeRunner files={selectedFiles} setError={setError} />
       </ErrorBoundary>
       {errorOverlay}
     </div>

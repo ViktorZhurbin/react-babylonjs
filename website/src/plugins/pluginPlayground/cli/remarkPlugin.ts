@@ -31,20 +31,14 @@ export const remarkPlugin: Plugin<[RemarkPluginProps], Root> = ({ getDemoDataByP
       }
 
       const { files, dependencies } = demoDataByPath[importPath]
-      const attributes: Array<[string, string]> = [
-        ['files', JSON.stringify(files)],
-        ['dependencies', JSON.stringify(dependencies)],
-      ]
-
-      const standalone = getMdxJsxAttribute(node, 'standalone')
-      if (standalone !== undefined) {
-        attributes.push(['standalone', 'true'])
-      }
 
       Object.assign(node, {
         type: 'mdxJsxFlowElement',
         name: 'Playground',
-        attributes: getMdxJsxAttributes(attributes),
+        attributes: getMdxJsxAttributes([
+          ['files', JSON.stringify(files)],
+          ['dependencies', JSON.stringify(dependencies)],
+        ]),
       })
     })
   }

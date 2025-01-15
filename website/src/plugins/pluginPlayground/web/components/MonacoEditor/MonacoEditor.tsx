@@ -3,7 +3,7 @@ import Editor from '@monaco-editor/react'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { EditorTheme } from './theme'
 import { MonacoLanguage } from './constants'
-import { useActiveMainFile } from './useActiveCode'
+import { useActiveCode } from './useActiveCode'
 import { initMonacoEditor } from './initMonacoEditor'
 import { useSaveFileToDb } from './useSaveFiles'
 
@@ -12,11 +12,11 @@ if (typeof window !== 'undefined') {
 }
 
 export function MonacoEditor() {
-  const isDark = useDark()
-  const theme = isDark ? EditorTheme.Dark : EditorTheme.Light
+  const theme = useDark() ? EditorTheme.Dark : EditorTheme.Light
 
   const [language] = useLocalStorageLanguage()
-  const activeFile = useActiveMainFile()
+  const { code, updateCode } = useActiveCode()
+
   const saveFile = useSaveFileToDb()
 
   return (
@@ -24,9 +24,9 @@ export function MonacoEditor() {
       theme={theme}
       path="App.tsx"
       defaultLanguage="typescript"
-      value={activeFile.get()}
+      value={code}
       onChange={(code = '') => {
-        activeFile.set(code)
+        updateCode(code, language)
         saveFile(code)
       }}
       language={MonacoLanguage[language]}

@@ -2,17 +2,15 @@ import clsx from 'clsx'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { Preview } from '../Preview/Preview'
 import { View } from '../../constants'
-import { FilesEntry } from '../../../shared/types'
 import { useIsSmallScreen } from '../../context/Layout'
 import { useLocalStorageView } from '../../hooks/localStorage'
 import styles from './Panels.module.css'
 
 type PanelsProps = {
-  files: FilesEntry
   editor: React.ReactElement
 }
 
-export const Panels = ({ editor, files }: PanelsProps) => {
+export const Panels = ({ editor }: PanelsProps) => {
   const [view] = useLocalStorageView()
   const isVertical = useIsSmallScreen()
 
@@ -47,7 +45,7 @@ export const Panels = ({ editor, files }: PanelsProps) => {
           order={isVertical ? 0 : 1}
           className={getHiddenClass(view === View.Code)}
         >
-          <Preview files={files} />
+          <Preview />
         </Panel>
       </PanelGroup>
     </div>

@@ -1,4 +1,4 @@
-import { createElement, ReactNode, useState } from 'react'
+import { createElement, ReactNode, useEffect, useState } from 'react'
 import { useDebouncedCallback, useShallowEffect } from '@mantine/hooks'
 import { Language } from '@pluginPlayground/shared/constants'
 import { FilesEntry } from '../../../shared/types'
@@ -13,9 +13,8 @@ type CodeRunnerProps = {
 }
 
 export const CodeRunner = ({ files, setError }: CodeRunnerProps) => {
-  const [component, setComponent] = useState<ReactNode | null>(null)
-
   const [language] = useLocalStorageLanguage()
+  const [component, setComponent] = useState<ReactNode | null>(null)
 
   const getComponent = async (files: FilesEntry, language: Language) => {
     try {
@@ -41,7 +40,7 @@ export const CodeRunner = ({ files, setError }: CodeRunnerProps) => {
 
   const getComponentDebounced = useDebouncedCallback(getComponent, DEBOUNCE_TIME)
 
-  useShallowEffect(() => {
+  useEffect(() => {
     getComponentDebounced(files, language)
   }, [getComponentDebounced, files, language])
 
