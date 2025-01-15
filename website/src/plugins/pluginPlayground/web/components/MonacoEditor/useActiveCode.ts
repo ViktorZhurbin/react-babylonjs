@@ -1,28 +1,21 @@
 import { EntryFiles } from '../../../shared/constants'
-import { useFilesContext } from '../../context/Files'
 import { useLocalStorageLanguage } from '../../hooks/localStorage'
+import { useCurrentFiles } from '../../hooks/useCurrentFiles'
 
 export const useActiveCode = () => {
-  const { files, setFiles } = useFilesContext()
   const [language] = useLocalStorageLanguage()
+  const { currentFiles, updateCurrentFiles } = useCurrentFiles()
 
   const entryFile = EntryFiles[language]
-  const code = files[language][entryFile]
+  const code = currentFiles[entryFile]
 
   return {
     code,
     updateCode: (value: string) => {
       const entryFile = EntryFiles[language]
 
-      setFiles((prev) => {
-        const update = {
-          [language]: {
-            ...prev[language],
-            [entryFile]: value,
-          },
-        }
-
-        return { ...prev, ...update }
+      updateCurrentFiles({
+        [entryFile]: value,
       })
     },
   }
