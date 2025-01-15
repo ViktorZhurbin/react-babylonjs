@@ -5,7 +5,7 @@ import { useLocalStorageLanguage } from '../../hooks/localStorage'
 import { useReadFilesFromDb } from '../../hooks/useLoadFilesFromDb'
 import { MonacoLanguage, MonacoTheme } from './constants'
 import { initMonacoEditor } from './initMonacoEditor'
-import { useSaveFilesToDbCallback } from '../../hooks/useSaveToDb'
+import { useSaveFilesToDb } from '../../hooks/useSaveToDb'
 
 if (typeof window !== 'undefined') {
   initMonacoEditor()
@@ -18,7 +18,7 @@ export function EditorMonaco() {
   const { code, updateCode } = useActiveCode()
 
   useReadFilesFromDb()
-  const saveToDb = useSaveFilesToDbCallback()
+  const saveToDb = useSaveFilesToDb()
 
   return (
     <Editor

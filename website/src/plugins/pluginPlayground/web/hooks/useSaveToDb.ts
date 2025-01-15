@@ -1,15 +1,16 @@
-import { id } from '@instantdb/react'
 import { useDebouncedCallback } from '@mantine/hooks'
 import { toMerged } from 'es-toolkit'
 import { useSearchParams } from 'rspress/runtime'
-import { addFiles, updateFiles } from '../db/crud'
-import { usePlaygroundId } from './location'
+import { createSnippet, updateSnippet } from '../db/crud'
+import { useSnippetId } from './location'
 import { useFiles } from './useCurrentFiles'
+import { makeId } from '../utils/makeId'
+import { SearchParams } from '../constants'
 
 const DEBOUNCE_TIME = 1000
 
-export const useSaveFilesToDbCallback = () => {
-  const pgId = usePlaygroundId()
+export const useSaveFilesToDb = () => {
+  const snippetId = useSnippetId()
   const [, setSearchParams] = useSearchParams()
   const { allFiles, language, activeFile } = useFiles()
 
@@ -20,13 +21,13 @@ export const useSaveFilesToDbCallback = () => {
       },
     })
 
-    if (pgId) {
-      updateFiles(pgId, newFiles)
+    if (snippetId) {
+      updateSnippet(snippetId, newFiles)
     } else {
-      const newPgId = id()
+      const snippetId = makeId()
 
-      addFiles(newPgId, newFiles)
-      setSearchParams({ pgId: newPgId })
+      createSnippet(snippetId, newFiles)
+      setSearchParams({ [SearchParams.SnippetId]: snippetId })
     }
   }, DEBOUNCE_TIME)
 }

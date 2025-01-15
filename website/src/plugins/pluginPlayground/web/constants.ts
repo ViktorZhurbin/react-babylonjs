@@ -10,5 +10,5 @@ export enum LocalStorage {
 }
 
 export enum SearchParams {
-  PgId = 'pgId',
+  SnippetId = 'snippetId',
 }

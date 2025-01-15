@@ -48,6 +48,7 @@
     "mdast-util-mdx": "^3.0.0",
     "micromark-extension-mdxjs": "^3.0.0",
     "monaco-editor": "^0.52.2",
+    "nanoid": "^5.0.9",
     "prettier": "^3.4.2",
     "react-babylonjs": "3.2.2",
     "react-error-boundary": "^5.0.0",

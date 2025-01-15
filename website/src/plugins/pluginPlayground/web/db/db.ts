@@ -7,6 +7,7 @@ const schema = i.schema({
   entities: {
     files: i.entity({
       filesJson: i.json(),
+      snippetId: i.string(),
       // ownerId: i.string(),
       // updatedAt: i.number(),
       // createdAt: i.number(),

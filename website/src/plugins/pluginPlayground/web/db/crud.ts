@@ -1,21 +1,20 @@
+import { id, lookup } from '@instantdb/react'
 import { db } from './db'
 import { PlaygroundProps } from '../../shared/types'
 
-export function addFiles(pgId: string, files: PlaygroundProps['files']) {
+export function createSnippet(snippetId: string, files: PlaygroundProps['files']) {
   db.transact(
-    db.tx.files[pgId].update({
+    db.tx.files[id()].update({
+      snippetId,
       filesJson: JSON.stringify(files),
-      // ownerId: '1',
-      // createdAt: Date.now(),
     })
   )
 }
 
-export function updateFiles(pgId: string, files: PlaygroundProps['files']) {
+export function updateSnippet(snippetId: string, files: PlaygroundProps['files']) {
   db.transact(
-    db.tx.files[pgId].merge({
+    db.tx.files[lookup('snippetId', snippetId)].merge({
       filesJson: JSON.stringify(files),
-      // updatedAt: Date.now(),
     })
   )
 }

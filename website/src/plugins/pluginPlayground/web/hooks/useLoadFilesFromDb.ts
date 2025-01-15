@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { db } from '../db/db'
-import { usePlaygroundId } from './location'
+import { useSnippetId } from './location'
 import { useFilesContext } from '../context/Files'
 import { PlaygroundProps } from '../../shared/types'
 
 export const useReadFilesFromDb = () => {
-  const playgroundId = usePlaygroundId()
+  const playgroundId = useSnippetId()
   const { setFiles } = useFilesContext()
 
   useEffect(() => {
