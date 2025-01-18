@@ -1,0 +1,60 @@
+---
+title: Quickstart
+sidebar:
+  order: 1
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+When starting a Create React App (CRA) you optionally choose a template like:
+`npm init react-app my-app --template typescript`
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+  ```sh
+  npm init react-app my-app
+  ```
+
+  </TabItem>
+  <TabItem label="yarn">
+  ```sh
+  yarn create react-app my-app
+  ```
+  </TabItem>
+  <TabItem label="bun">
+  ```sh
+  bun create react-app my-app
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```sh
+  pnpm create react-app my-app
+  ```
+  </TabItem>
+</Tabs>
+
+With that empty project, you just need to add the babylon dependencies:
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```sh
+    npm install install react-babylonjs @babylonjs/core @babylonjs/gui
+    ```
+
+  </TabItem>
+  <TabItem label="yarn">
+    ```sh
+    yarn add install react-babylonjs @babylonjs/core @babylonjs/gui
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```sh
+    bun add install react-babylonjs @babylonjs/core @babylonjs/gui
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```sh
+    pnpm add install react-babylonjs @babylonjs/core @babylonjs/gui
+    ```
+  </TabItem>
+</Tabs>

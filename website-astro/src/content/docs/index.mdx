@@ -1,0 +1,36 @@
+---
+title: React Babylonjs
+description: Get started building your docs site with Starlight.
+template: splash
+hero:
+  tagline: Use Babylon.js with React
+  # image:
+  #   file: ../../assets/logo.png
+  actions:
+    - text: Quick Start
+      link: /guide/quickstart/
+    - text: Examples
+      link: /examples/overview/
+    - text: Playground
+      link: /playground/
+      variant: secondary
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components'
+
+<CardGrid stagger>
+  <Card title="Use React" icon="rocket">
+    Build 3D and XR scenes and games using reactive programming, reusable
+    components, and hooks.
+  </Card>
+  <Card title="Declarative API" icon="puzzle">
+    The Babylon.js API is mostly covered declaratively thanks to code generation
+    and even custom props allow you to declaratively add shadows, physics, 3D
+    models, attach 2D/3D UI to meshes, etc.
+  </Card>
+  <Card title="Hooks / TS / Context API" icon="star">
+    Fully supports hooks. Full support for TypeScript with auto-completion on
+    elements and compile time checks. Context API and hooks provide easy access
+    to Scene/Engine/Canvas.
+  </Card>
+</CardGrid>
