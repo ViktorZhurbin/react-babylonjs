@@ -4,7 +4,8 @@
   "workspaces": {
     "packages": [
       "packages/react-babylonjs",
-      "website"
+      "website",
+      "website-astro"
     ]
   },
   "scripts": {

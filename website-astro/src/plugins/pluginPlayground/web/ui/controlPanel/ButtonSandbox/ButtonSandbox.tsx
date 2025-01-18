@@ -1,0 +1,26 @@
+import { OpenInCodeSandboxButton, SandpackProvider } from '@codesandbox/sandpack-react'
+import { Language } from '../../../../shared/constants'
+import { useFilesContext } from '../../../context/Files'
+import { useFiles } from '../../../hooks/useCurrentFiles'
+import { useLocalStorageLanguage } from '../../../hooks/useLocalStorageSettings'
+import { useDark } from '../../../hooks/useDark'
+
+export const ButtonSandbox = () => {
+  const theme = useDark() ? 'dark' : 'light'
+  const { currentFiles } = useFiles()
+  const { dependencies } = useFilesContext()
+  const { language } = useLocalStorageLanguage()
+
+  return (
+    <SandpackProvider
+      theme={theme}
+      template={language === Language.tsx ? 'react-ts' : 'react'}
+      files={currentFiles}
+      customSetup={{
+        dependencies,
+      }}
+    >
+      <OpenInCodeSandboxButton />
+    </SandpackProvider>
+  )
+}
